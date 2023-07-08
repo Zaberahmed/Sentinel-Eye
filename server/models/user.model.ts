@@ -1,7 +1,7 @@
 import { RegisteredUser } from 'interfaces/user.interface';
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const userSchema: RegisteredUser = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,

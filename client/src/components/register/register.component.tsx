@@ -2,6 +2,9 @@ import './register.component.css';
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RegisteredUser } from '../../interfaces/user.interface';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useDispatch } from 'react-redux';
+import { signup, signupGoogle } from '../../redux/actions/auth';
 
 const initialState: RegisteredUser = {
 	name: '',
@@ -11,11 +14,14 @@ const initialState: RegisteredUser = {
 	age: '',
 	address: '',
 };
+interface tokenResponse {
+	access_token: string;
+}
 const RegisterComponent = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [state, setState] = useState<RegisteredUser>(initialState);
-	const [showModal, setShowModal] = useState<boolean>(false);
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -32,6 +38,12 @@ const RegisterComponent = () => {
 
 		const user = Object.fromEntries(formData);
 		console.log(user);
+		dispatch(signup(user, navigate));
+	};
+	const handleGoogleLoginResponse = (tokenResponse: tokenResponse) => {
+		const accessToken = tokenResponse.access_token;
+
+		dispatch(signupGoogle(accessToken, navigate));
 	};
 	const validateForm = (): boolean => {
 		return !state.name || !state.email || !state.password;
@@ -131,11 +143,15 @@ const RegisterComponent = () => {
 						Register
 					</button>
 				</div>
+				<span className="or-text">or</span>
+				<div className="google-button">
+					<button
+						type="submit"
+						onClick={() => useGoogleLogin({ onSuccess: handleGoogleLoginResponse })}>
+						Sign in with Google
+					</button>
+				</div>
 			</form>
-			<span className="or-text">or</span>
-			<div className="google-button">
-				<button type="submit">Sign in with Google</button>
-			</div>
 		</div>
 	);
 };

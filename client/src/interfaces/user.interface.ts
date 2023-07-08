@@ -1,4 +1,5 @@
 export interface RegisteredUser {
+	_id?: string;
 	name: string;
 	email: string;
 	password: string;
@@ -7,6 +8,7 @@ export interface RegisteredUser {
 	address: string;
 }
 export interface LoggedUser {
+	_id?: string;
 	email: string;
 	password: string;
 }

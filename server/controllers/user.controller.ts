@@ -2,10 +2,10 @@ import { hashing, doesUserExist, checkCredentials } from './_helperFunctions';
 import { Request, Response } from 'express';
 const { createSession, getSession, destroySession } = require('./../middleware/sessionManagement');
 import { findAllUser, findUserByEmail, findUserById, createUser } from './../models/user.model';
+import axios from 'axios';
 
 export const registration = async (req: Request, res: Response) => {
 	try {
-		console.log('Its working');
 		const { name, gender, age, email, address, password } = req.body;
 
 		if (await doesUserExist(email)) {
