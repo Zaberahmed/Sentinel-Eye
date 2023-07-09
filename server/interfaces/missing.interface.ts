@@ -7,5 +7,5 @@ export interface Missing {
 	age?: string;
 	height?: string;
 	description?: string[];
-	timestamp: string;
+	timestamp?: string;
 }

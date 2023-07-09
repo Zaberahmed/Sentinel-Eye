@@ -4,5 +4,5 @@ export interface Crime {
 	category: string;
 	location: Location;
 	context: string;
-	month: string;
+	month?: string;
 }

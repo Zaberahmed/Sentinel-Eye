@@ -8,7 +8,7 @@ const commentSchema: Comment = new mongoose.Schema({
 	},
 	timestamp: {
 		type: String,
-		require: true,
+		require: false,
 	},
 	text: {
 		type: [String],
