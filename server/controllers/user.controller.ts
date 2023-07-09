@@ -2,7 +2,7 @@ import { hashing, doesUserExist, checkCredentials } from './_helperFunctions';
 import { Request, Response } from 'express';
 const { createSession, getSession, destroySession } = require('./../middleware/sessionManagement');
 import { findAllUser, findUserByEmail, findUserById, createUser } from './../models/user.model';
-import axios from 'axios';
+// import axios from 'axios';
 
 export const registration = async (req: Request, res: Response) => {
 	try {
@@ -53,6 +53,20 @@ export const login = async (req: Request, res: Response) => {
 		});
 
 		return res.status(200).send({ accessToken: token });
+	} catch (error) {
+		res.status(500);
+		console.log(error);
+	}
+};
+export const profile = async (req: Request, res: Response) => {
+	try {
+		const token = req.headers.authorization?.split(' ')[1];
+		// const token = req.cookies.accessToken;
+		const session = getSession(token);
+
+		const profile = await findUserById(session.userId);
+
+		return res.status(200).send(profile);
 	} catch (error) {
 		res.status(500);
 		console.log(error);

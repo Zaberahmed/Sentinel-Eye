@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const { findUserByEmail } = require('./../models/user.model');
-import { RegisteredUser, LoggedUser } from 'interfaces/user.interface';
+import { RegisteredUser, LoggedUser } from './../interfaces/user.interface';
 
 const saltRounds: number = 10;
 

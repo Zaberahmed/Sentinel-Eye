@@ -1,5 +1,5 @@
 export interface Missing {
-	user_id:string
+	user_id: string;
 	type: string;
 	name?: string;
 	image: string;
@@ -7,4 +7,5 @@ export interface Missing {
 	age?: string;
 	height?: string;
 	description?: string[];
+	timestamp: string;
 }

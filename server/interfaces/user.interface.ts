@@ -1,3 +1,7 @@
+import { Crime } from './crime.interface';
+import { Missing } from './missing.interface';
+import { Post } from './post.interface';
+
 export interface RegisteredUser {
 	name: string;
 	email: string;
@@ -5,6 +9,10 @@ export interface RegisteredUser {
 	gender: string;
 	age: string;
 	address: string;
+	posts?: Post[];
+	comments?: Comment[];
+	crimeReports?: Crime[];
+	missingReports?: Missing[];
 }
 export interface LoggedUser {
 	email: string;

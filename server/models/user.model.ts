@@ -1,4 +1,4 @@
-import { RegisteredUser } from 'interfaces/user.interface';
+import { RegisteredUser } from './../interfaces/user.interface';
 const mongoose = require('mongoose');
 
 const userSchema: RegisteredUser = new mongoose.Schema({
@@ -28,9 +28,52 @@ const userSchema: RegisteredUser = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	posts: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Post',
+			require: false,
+		},
+	],
+	comments: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Comment',
+			require: false,
+		},
+	],
+	crimeReports: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Crime',
+			require: false,
+		},
+	],
+	missingReports: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Missing',
+			require: false,
+		},
+	],
 });
 
 const User = mongoose.model('User', userSchema);
+
+export const createUser = async (user: RegisteredUser) => {
+	try {
+		return await User.create({
+			name: user.name,
+			address: user.address,
+			age: user.age,
+			email: user.email,
+			gender: user.gender,
+			password: user.password,
+		});
+	} catch (error) {
+		console.log(error);
+	}
+};
 
 export const findAllUser = async () => {
 	try {
@@ -51,21 +94,6 @@ export const findUserByEmail = async (email: string) => {
 export const findUserById = async (id: string) => {
 	try {
 		return await User.findOne({ _id: id });
-	} catch (error) {
-		console.log(error);
-	}
-};
-
-export const createUser = async (user: RegisteredUser) => {
-	try {
-		return await User.create({
-			name: user.name,
-			address: user.address,
-			age: user.age,
-			email: user.email,
-			gender: user.gender,
-			password: user.password,
-		});
 	} catch (error) {
 		console.log(error);
 	}

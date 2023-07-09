@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { default as mongoose } from 'mongoose';
+import mongoose from 'mongoose';
 
 const userRoutes = require('./routes/userRoutes');
 const SERVER_PORT = 4000; //process.env
