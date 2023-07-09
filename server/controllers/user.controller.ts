@@ -4,7 +4,7 @@ const { createSession, getSession, destroySession } = require('./../middleware/s
 import { findAllUser, findUserByEmail, findUserById, createUser } from './../models/user.model';
 // import axios from 'axios';
 
-export const registration = async (req: Request, res: Response) => {
+const registration = async (req: Request, res: Response) => {
 	try {
 		const { name, gender, age, email, address, password } = req.body;
 
@@ -30,7 +30,7 @@ export const registration = async (req: Request, res: Response) => {
 	}
 };
 
-export const login = async (req: Request, res: Response) => {
+const login = async (req: Request, res: Response) => {
 	try {
 		const { email, password } = req.body;
 
@@ -58,10 +58,10 @@ export const login = async (req: Request, res: Response) => {
 		console.log(error);
 	}
 };
-export const profile = async (req: Request, res: Response) => {
+const profile = async (req: Request, res: Response) => {
 	try {
 		const token = req.headers.authorization?.split(' ')[1];
-		// const token = req.cookies.accessToken;
+
 		const session = getSession(token);
 
 		const profile = await findUserById(session.userId);
@@ -72,3 +72,36 @@ export const profile = async (req: Request, res: Response) => {
 		console.log(error);
 	}
 };
+const getAllUser = async (req: Request, res: Response) => {
+	try {
+		const users = await findAllUser();
+		return res.status(200).send(users);
+	} catch (error) {
+		console.log(error);
+	}
+};
+const getUser = async (req: Request, res: Response) => {
+	try {
+		const { _id } = req.body;
+		const user = await findUserById(_id);
+		return res.status(200).send(user);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+const logout = (req: Request, res: Response) => {
+	try {
+		// const token = req.cookies.accessToken;
+		const token = req.headers.authorization?.split(' ')[1];
+
+		if (!destroySession(token)) {
+			return res.status(400).send({ message: 'No session to logout.' });
+		}
+		return res.status(200).send({ message: 'successfully logged out!' });
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export { registration, login, profile, getAllUser, getUser, logout };

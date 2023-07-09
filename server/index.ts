@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import { router } from './routes/router';
 
-const userRoutes = require('./routes/userRoutes');
 const SERVER_PORT = 4000; //process.env
 const corsConfig = {
 	origin: 'http://localhost:5173', //process.env
@@ -15,7 +15,7 @@ const DATABASE_NAME = 'Sentinel_Eye'; //process.env
 const app = express();
 app.use(cors(corsConfig));
 app.use(express.json());
-app.use(userRoutes);
+app.use(router);
 
 mongoose.connection.on('open', () => console.log('Connection to database is open'));
 

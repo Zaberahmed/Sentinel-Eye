@@ -6,9 +6,13 @@ const postSchema: Post = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		require: true,
 	},
+	text: {
+		type: [String],
+		require: true,
+	},
 	timestamp: {
 		type: String,
-		require: true,
+		require: false,
 	},
 	comments: [
 		{
@@ -21,10 +25,11 @@ const postSchema: Post = new mongoose.Schema({
 
 const Post = mongoose.model('Post', postSchema);
 
-export const createPost = async (post: Post) => {
+const createPost = async (post: Post) => {
 	try {
 		const time = new Date().getTime().toString();
 		return await Post.create({
+			text: post.text,
 			user_id: post.user_id,
 			timestamp: time,
 		});
@@ -33,7 +38,7 @@ export const createPost = async (post: Post) => {
 	}
 };
 
-export const findAllPost = async () => {
+const findAllPost = async () => {
 	try {
 		return await Post.find({});
 	} catch (error) {
@@ -41,10 +46,12 @@ export const findAllPost = async () => {
 	}
 };
 
-export const findPostById = async (id: string) => {
+const findPostById = async (id: string) => {
 	try {
 		return await Post.findOne({ _id: id });
 	} catch (error) {
 		console.log(error);
 	}
 };
+
+export { createPost, findAllPost, findPostById };

@@ -1,6 +1,7 @@
-import { Comment } from "./comment.interface";
+import { Comment } from './comment.interface';
 export interface Post {
-	timestamp: string;
+	text: string[];
+	timestamp?: string;
 	user_id: string;
-	comments: Comment[];
+	comments?: Comment[];
 }
