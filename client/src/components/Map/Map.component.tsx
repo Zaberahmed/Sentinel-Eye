@@ -9,7 +9,7 @@ const MapComponent: React.FC = () => {
 	const mapContainerRef = useRef<HTMLDivElement>(null);
 	const mapRef = useRef<Map | null>(null);
 	const markerPosition: [number, number] = [-0.1084, 51.5549];
-	const searchInputRef = useRef<HTMLInputElement>(null);
+
 	const [mapStyle, setMapStyle] = useState<'streets-v11' | 'dark-v10'>('streets-v11');
 	useEffect(() => {
 		if (mapContainerRef.current) {
@@ -31,11 +31,24 @@ const MapComponent: React.FC = () => {
 			search.accessToken = 'pk.eyJ1IjoiemFiZXItYWhtZWQiLCJhIjoiY2xqdXM1bjB4MWU3MjNmbzR2ZzB6emhneCJ9.nSXKxVjpJs9CMWUTIzuX2Q';
 			search.theme = {
 				variables: {
-					colorPrimary: '',
+					fontFamily: 'Poppins, sans-serif',
+					unit: '15px',
+					padding: '0.5em',
+					borderRadius: '10px',
+					boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
 				},
-				cssText: '.Input:active { opacity: 0.9; }',
+				cssText: `
+			       .search-box-container {
+			         display: flex;
+			         justify-content: center;
+			         align-items: center;
+			       }
+			     `,
 			};
+
 			mapRef.current.addControl(search);
+
+			// const geoCoder = new MapboxGeoCoder();
 		}
 
 		return () => {

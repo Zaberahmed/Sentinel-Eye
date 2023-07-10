@@ -10,12 +10,12 @@ function App() {
 			<Route
 				path="/"
 				element={<MapComponent />}></Route>
-			<Route
+			{/* <Route
 				path="/login"
 				element={<LoginComponent />}></Route>
 			<Route
 				path="/register"
-				element={<RegisterComponent />}></Route>
+				element={<RegisterComponent />}></Route> */}
 		</Routes>
 	);
 }
