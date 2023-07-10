@@ -62,12 +62,10 @@ const MapComponent: React.FC = () => {
 	};
 
 	return (
-		<div className="map-container">
-			<div
-				ref={mapContainerRef}
-				className="map-container"
-			/>
-		</div>
+		<div
+			ref={mapContainerRef}
+			style={{ width: '100%', height: '100%' }}
+		/>
 	);
 };
 

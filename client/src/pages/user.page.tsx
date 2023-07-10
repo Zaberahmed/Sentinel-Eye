@@ -1,9 +1,11 @@
 import { Link, Outlet } from 'react-router-dom';
-
+import './user.page.css';
 const UserPage = () => {
 	return (
 		<div className="user-page-container">
-			<Outlet />
+			<div>
+				<Outlet />
+			</div>
 			<nav className="naivgation-container">
 				<Link to="discover"> Discover</Link>
 				<Link to="report"> Report</Link>

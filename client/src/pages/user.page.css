@@ -1,0 +1,18 @@
+.user-page-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	height: 100vh;
+}
+
+.navigation-container {
+	display: inline-block;
+	justify-content: space-around;
+	align-items: center;
+	background-color: #f2f2f2;
+	height: 60px;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+}
