@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import { createCrimeReport, findAllCrime, findCrimeById, findCrimeByMonth } from './../models/crime.model';
 const makeCrimeReport = async (req: Request, res: Response) => {
 	try {
-		const { user_id, category, location, context } = req.body;
-		const crimeReport = { user_id, category, location, context };
+		const { user_id, category, location, context, date } = req.body;
+		const crimeReport = { user_id, category, location, context, date };
 		const newCrimeReport = await createCrimeReport(crimeReport);
 		return res.status(201).send(newCrimeReport);
 	} catch (error) {

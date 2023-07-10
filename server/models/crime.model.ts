@@ -19,7 +19,7 @@ const crimeSchema: Crime = new mongoose.Schema({
 		type: String,
 		require: false,
 	},
-	month: {
+	date: {
 		type: String,
 		require: true,
 	},
@@ -29,13 +29,13 @@ const Crime = mongoose.model('Crime', crimeSchema);
 
 export const createCrimeReport = async (crime: Crime) => {
 	try {
-		const month = new Date().getMonth().toString();
+
 		return await Crime.create({
 			user_id: crime.user_id,
 			category: crime.category,
 			location: crime.location,
 			context: crime.context,
-			month: month,
+			date: crime.date,
 		});
 	} catch (error) {
 		console.log(error);
