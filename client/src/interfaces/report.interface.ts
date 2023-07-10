@@ -13,4 +13,5 @@ export interface Report {
 	category: string;
 	context?: string;
 	location: Location;
+	date: string;
 }

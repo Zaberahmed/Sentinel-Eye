@@ -1,10 +1,14 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { Report } from '../../interfaces/report.interface';
+import './report.componenet.css';
+import { format } from 'date-fns';
+import MapComponent from '../Map/Map.component';
 
 const ReportComponent = () => {
 	const [category, setCategory] = useState('');
 	const [description, setDescription] = useState('');
 	const [location, setLocation] = useState('');
+	const [date, setDate] = useState(new Date().toISOString());
 
 	const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
 		setCategory(event.target.value);
@@ -13,8 +17,13 @@ const ReportComponent = () => {
 	const handleDescriptionChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		setDescription(event.target.value);
 	};
+	const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const selectedDate = event.target.value;
+		const formattedDate = format(new Date(selectedDate), 'dd/MM/yyyy');
+		setDate(formattedDate);
+	};
 
-	const handleLocationChange = (event: ChangeEvent<HTMLInputElement>) => {
+	const handleLocationChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		setLocation(event.target.value);
 	};
 
@@ -28,12 +37,13 @@ const ReportComponent = () => {
 		// Reset the form fields
 		setCategory('');
 		setDescription('');
+		setDate('');
 		setLocation('');
 	};
 
 	return (
-		<div>
-			<h2>Report Crime</h2>
+		<div className="report-container">
+			<h2 style={{ textAlign: 'center' }}>Report A Crime</h2>
 			<form onSubmit={handleSubmit}>
 				<div>
 					<label htmlFor="category">Category:</label>
@@ -45,7 +55,6 @@ const ReportComponent = () => {
 						<option value="Theft">Theft</option>
 						<option value="Assault">Assault</option>
 						<option value="Vandalism">Vandalism</option>
-						{/* Add more category options as needed */}
 					</select>
 				</div>
 				<div>
@@ -57,14 +66,19 @@ const ReportComponent = () => {
 					/>
 				</div>
 				<div>
-					<label htmlFor="location">Location:</label>
+					<label htmlFor="date">Date:</label>
 					<input
-						type="text"
-						id="location"
-						value={location}
-						onChange={handleLocationChange}
+						type="date"
+						id="date"
+						value={date}
+						max={new Date().toISOString().slice(0, 16)}
+						onChange={handleDateChange}
 					/>
 				</div>
+				<div className="map">
+					<MapComponent />
+				</div>
+
 				<button type="submit">Report</button>
 			</form>
 		</div>

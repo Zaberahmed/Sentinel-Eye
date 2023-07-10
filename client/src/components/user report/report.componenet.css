@@ -1,0 +1,60 @@
+.report-container {
+	max-width: 400px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: #f8f8f8;
+	border-radius: 5px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.report-container h2 {
+	font-size: 1.5rem;
+	margin-bottom: 20px;
+}
+
+.report-container form {
+	display: flex;
+	flex-direction: column;
+}
+
+.report-container label {
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.report-container select,
+.report-container textarea,
+.report-container input {
+	margin-bottom: 15px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 14px;
+}
+.report-form textarea#location {
+	height: 200px;
+	resize: vertical;
+}
+
+.report-container button {
+	padding: 10px 20px;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.report-container button:hover {
+	background-color: #0056b3;
+}
+
+.map {
+	margin-top: 20px;
+	padding: 10px;
+	background-color: #f8f8f8;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	height: 300px;
+}
