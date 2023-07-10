@@ -8,7 +8,8 @@ const ReportComponent = () => {
 	const [category, setCategory] = useState('');
 	const [description, setDescription] = useState('');
 	const [location, setLocation] = useState('');
-	const [date, setDate] = useState(new Date().toISOString());
+	const [date, setDate] = useState('');
+	const [formattedDate, setFormattedDate] = useState('');
 
 	const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
 		setCategory(event.target.value);
@@ -19,8 +20,15 @@ const ReportComponent = () => {
 	};
 	const handleDateChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const selectedDate = event.target.value;
-		const formattedDate = format(new Date(selectedDate), 'dd/MM/yyyy');
-		setDate(formattedDate);
+		setDate(selectedDate);
+
+		// Format the selected date (e.g., "2023-07-15") as desired (e.g., "July 15, 2023")
+		const formatted = new Date(selectedDate).toLocaleDateString('en-US', {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric',
+		});
+		setFormattedDate(formatted);
 	};
 
 	const handleLocationChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -29,6 +37,11 @@ const ReportComponent = () => {
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		const form = event.currentTarget;
+		const formData: FormData = new FormData(form);
+
+		const report = Object.fromEntries(formData);
+		console.log(report);
 
 		// Process the form submission or perform any necessary actions
 		// Here, you can access the values of 'category', 'description', and 'location'
@@ -46,7 +59,7 @@ const ReportComponent = () => {
 			<h2 style={{ textAlign: 'center' }}>Report A Crime</h2>
 			<form onSubmit={handleSubmit}>
 				<div>
-					<label htmlFor="category">Category:</label>
+					<label htmlFor="category">Category: </label>
 					<select
 						id="category"
 						value={category}
@@ -58,7 +71,7 @@ const ReportComponent = () => {
 					</select>
 				</div>
 				<div>
-					<label htmlFor="description">Description:</label>
+					<label htmlFor="description">Description: </label>
 					<textarea
 						id="description"
 						value={description}
@@ -66,7 +79,7 @@ const ReportComponent = () => {
 					/>
 				</div>
 				<div>
-					<label htmlFor="date">Date:</label>
+					<label htmlFor="date">Date: </label>
 					<input
 						type="date"
 						id="date"
@@ -75,8 +88,12 @@ const ReportComponent = () => {
 						onChange={handleDateChange}
 					/>
 				</div>
-				<div className="map">
-					<MapComponent />
+				<div>
+					<label htmlFor="location">Location:</label>
+
+					<div className="map">
+						<MapComponent />
+					</div>
 				</div>
 
 				<button type="submit">Report</button>

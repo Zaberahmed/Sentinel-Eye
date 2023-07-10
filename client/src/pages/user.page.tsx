@@ -6,7 +6,7 @@ const UserPage = () => {
 			<div>
 				<Outlet />
 			</div>
-			<nav className="naivgation-container">
+			<nav className="navigation-container">
 				<Link to="discover"> Discover</Link>
 				<Link to="report"> Report</Link>
 				<Link to="community"> Community</Link>
