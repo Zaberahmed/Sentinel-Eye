@@ -5,6 +5,10 @@ import { MapboxSearchBox } from '@mapbox/search-js-web';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiemFiZXItYWhtZWQiLCJhIjoiY2xqdXM1bjB4MWU3MjNmbzR2ZzB6emhneCJ9.nSXKxVjpJs9CMWUTIzuX2Q';
 
+interface MapComponentProps {
+	onSearchResult: (result: SearchResult) => void;
+}
+
 const MapComponent: React.FC = () => {
 	const mapContainerRef = useRef<HTMLDivElement>(null);
 	const mapRef = useRef<Map | null>(null);
@@ -22,7 +26,7 @@ const MapComponent: React.FC = () => {
 
 			const marker = new Marker({ color: '#e303fc', anchor: 'center' }).setLngLat(markerPosition).addTo(mapRef.current);
 
-			const popupOptions: mapboxgl.PopupOptions = { closeOnClick: false, closeButton: false };
+			const popupOptions: mapboxgl.PopupOptions = { closeOnClick: true, closeButton: true };
 			const popup = new mapboxgl.Popup(popupOptions).setHTML('<h3>Popup Content</h3><p>This is the popup content.</p>');
 
 			marker.setPopup(popup);
@@ -37,16 +41,20 @@ const MapComponent: React.FC = () => {
 					borderRadius: '10px',
 					boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
 				},
-				cssText: `
-			       .search-box-container {
-			         display: flex;
-			         justify-content: center;
-			         align-items: center;
-			       }
-			     `,
+				cssText: '.Input:active { opacity: 0.5; }',
 			};
 
 			mapRef.current.addControl(search);
+
+			// const inputElement = search.input;
+			// inputElement.addEventListener('change', (event) => {
+			// 	const newValue = (event.target as HTMLInputElement).value;
+			// 	console.log(newValue);
+			// });
+			search.addEventListener('retrieve', (event) => {
+				const featureCollection = event.detail;
+				console.log(featureCollection.features[0].geometry.coordinates);
+			});
 
 			// const geoCoder = new MapboxGeoCoder();
 		}

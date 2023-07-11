@@ -34,6 +34,9 @@ const ReportComponent = () => {
 	const handleLocationChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		setLocation(event.target.value);
 	};
+	 const handleSearchResult = (result: SearchResult) => {
+			setLocation(result.address);
+		};
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -92,7 +95,7 @@ const ReportComponent = () => {
 					<label htmlFor="location">Location:</label>
 
 					<div className="map">
-						<MapComponent />
+						<MapComponent onSearchResult={handleSearchResult} />
 					</div>
 				</div>
 
