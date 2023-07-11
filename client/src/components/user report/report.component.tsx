@@ -3,6 +3,8 @@ import { Report } from '../../interfaces/report.interface';
 import './report.componenet.css';
 import MapComponent from '../Map/Map.component';
 import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.insterface';
+import { ReportCrime } from '../../services/User.service';
+import { useNavigate } from 'react-router-dom';
 
 interface ReportComponentProps {
 	searchResult: SearchResult;
@@ -10,6 +12,7 @@ interface ReportComponentProps {
 }
 
 const ReportComponent = (props: ReportComponentProps) => {
+	const navigate = useNavigate();
 	const [category, setCategory] = useState('');
 	const [description, setDescription] = useState('');
 
@@ -35,17 +38,23 @@ const ReportComponent = (props: ReportComponentProps) => {
 		setFormattedDate(formatted);
 	};
 
-	const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
+	const handleButtonClick = async (event: React.MouseEvent<HTMLElement>) => {
 		event.preventDefault();
+		const street = { name: props.searchResult.street.name };
 
-		const Report = { category, context: description, date };
-		// console.log(category, description, date, props.searchResult);
+		const location = { latitude: props.searchResult.latitude.toString(), street: street, longitude: props.searchResult.longitude.toString() };
+		const user_id = '64a8d3809eaf4323bd625c8c';
 
-		// Process the form submission or perform any necessary actions
-		// Here, you can access the values of 'category', 'description', and 'location'
-		// and send them to your backend or perform other operations
+		const report = { user_id, category, context: description, date, location };
 
-		// Reset the form fields
+		const result = await ReportCrime(report);
+		console.log(result);
+
+		if (result) {
+			//toaster for completion
+			navigate('/user/discover');
+		}
+
 		setCategory('');
 		setDescription('');
 		setDate('');
@@ -53,7 +62,7 @@ const ReportComponent = (props: ReportComponentProps) => {
 		props.setSearchResult({
 			latitude: -0.1084,
 			longitude: 51.5549,
-			street: 'On the Pitch - Emirates Stadium, Arsenal Fc',
+			street: { name: 'On the Pitch - Emirates Stadium, Arsenal Fc' },
 		});
 	};
 

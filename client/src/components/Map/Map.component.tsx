@@ -59,7 +59,7 @@ const MapComponent = (props: MapComponentProps) => {
 				const longitude = featureCollection.features[0].geometry.coordinates[0];
 				const latitude = featureCollection.features[0].geometry.coordinates[1];
 				const street = featureCollection.features[0].properties.name;
-				props.setSearchResult({ longitude, latitude, street });
+				props.setSearchResult({ longitude, latitude, street: { name: street } });
 			});
 
 			// const geoCoder = new MapboxGeoCoder();
@@ -71,9 +71,10 @@ const MapComponent = (props: MapComponentProps) => {
 			}
 		};
 	}, [mapStyle]);
-	const toggleMapStyle = () => {
-		setMapStyle((prevStyle) => (prevStyle === 'streets-v11' ? 'dark-v10' : 'streets-v11'));
-	};
+
+	// const toggleMapStyle = () => {
+	// 	setMapStyle((prevStyle) => (prevStyle === 'streets-v11' ? 'dark-v10' : 'streets-v11'));
+	// };
 
 	return (
 		<div

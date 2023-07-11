@@ -29,7 +29,6 @@ const Crime = mongoose.model('Crime', crimeSchema);
 
 export const createCrimeReport = async (crime: Crime) => {
 	try {
-
 		return await Crime.create({
 			user_id: crime.user_id,
 			category: crime.category,
@@ -63,3 +62,25 @@ export const findCrimeByMonth = async (month: string) => {
 		console.log(error);
 	}
 };
+export const searchCrimesWithinRadius = async (latitudeStr: string, longitudeStr: string) => {
+	try {
+		const latitude = parseFloat(latitudeStr);
+		const longitude = parseFloat(longitudeStr);
+
+		const crimes = await Crime.find({
+			location: {
+				$near: {
+					$geometry: {
+						type: 'Point',
+						coordinates: [longitude, latitude],
+					},
+					$maxDistance: 1000,
+			},
+		});
+
+		return crimes;
+	} catch (error) {
+		console.log(error);
+	}
+};
+

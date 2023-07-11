@@ -5,7 +5,7 @@ import { router } from './routes/router';
 
 const SERVER_PORT = 4000; //process.env
 const corsConfig = {
-	origin: 'http://localhost:5173', //process.env
+	origin: 'http://localhost:4321', //process.env
 	credentials: true,
 };
 

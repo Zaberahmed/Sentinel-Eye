@@ -14,7 +14,7 @@ function App() {
 	const [searchResult, setSearchResult] = useState<SearchResult>({
 		latitude: -0.1084,
 		longitude: 51.5549,
-		street: 'On the Pitch - Emirates Stadium, Arsenal Fc',
+		street: { name: 'On the Pitch - Emirates Stadium, Arsenal Fc' },
 	});
 	return (
 		<Routes>
