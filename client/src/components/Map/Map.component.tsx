@@ -3,6 +3,7 @@ import mapboxgl, { Map, Marker } from 'mapbox-gl';
 import './Map.component.css';
 import { MapboxSearchBox } from '@mapbox/search-js-web';
 import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.insterface';
+import { GetAllCrime } from '../../services/User.service';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiemFiZXItYWhtZWQiLCJhIjoiY2xqdXM1bjB4MWU3MjNmbzR2ZzB6emhneCJ9.nSXKxVjpJs9CMWUTIzuX2Q';
 
@@ -11,13 +12,37 @@ interface MapComponentProps {
 	setSearchResult: SetSearchResult;
 }
 
-const MapComponent = (props: MapComponentProps) => {
+interface Report {
+	id: string;
+	latitude: number;
+	longitude: number;
+}
+
+const MapComponent: React.FC<MapComponentProps> = (props: MapComponentProps) => {
 	const mapContainerRef = useRef<HTMLDivElement>(null);
 	const mapRef = useRef<Map | null>(null);
 	const markerPosition: [number, number] = [-0.1084, 51.5549];
-
+	const [userReportedCrimes, setUserReportedCrimes] = useState<any[]>([]);
 	const [mapStyle, setMapStyle] = useState<'streets-v11' | 'dark-v10'>('streets-v11');
+
 	useEffect(() => {
+		const fetchCrimeReports = async () => {
+			try {
+				const result = await GetAllCrime();
+				console.log(result);
+				const convertedData = result.map((report: any) => ({
+					...report,
+					longitude: parseFloat(report.location.longitude),
+					latitude: parseFloat(report.location.latitude),
+				}));
+
+				setUserReportedCrimes(convertedData);
+				// setUserReportedCrimes(result);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+
 		if (mapContainerRef.current) {
 			mapRef.current = new mapboxgl.Map({
 				container: mapContainerRef.current,
@@ -48,21 +73,15 @@ const MapComponent = (props: MapComponentProps) => {
 
 			mapRef.current.addControl(search);
 
-			// const inputElement = search.input;
-			// inputElement.addEventListener('change', (event) => {
-			// 	const newValue = (event.target as HTMLInputElement).value;
-			// 	console.log(newValue);
-			// });
 			search.addEventListener('retrieve', (event) => {
 				const featureCollection = event.detail;
-				console.log(featureCollection);
 				const longitude = featureCollection.features[0].geometry.coordinates[0];
 				const latitude = featureCollection.features[0].geometry.coordinates[1];
 				const street = featureCollection.features[0].properties.name;
 				props.setSearchResult({ longitude, latitude, street: { name: street } });
 			});
 
-			// const geoCoder = new MapboxGeoCoder();
+			fetchCrimeReports();
 		}
 
 		return () => {
@@ -72,9 +91,18 @@ const MapComponent = (props: MapComponentProps) => {
 		};
 	}, [mapStyle]);
 
-	// const toggleMapStyle = () => {
-	// 	setMapStyle((prevStyle) => (prevStyle === 'streets-v11' ? 'dark-v10' : 'streets-v11'));
-	// };
+	useEffect(() => {
+		if (mapRef.current && userReportedCrimes.length > 0) {
+			userReportedCrimes.forEach((report) => {
+				const marker = new Marker({ color: '#ff0000', anchor: 'center' }).setLngLat([report.location.longitude, report.location.latitude]).addTo(mapRef.current!);
+
+				const popupOptions: mapboxgl.PopupOptions = { closeOnClick: true, closeButton: true };
+				const popupContent = `<h3>Report ID: ${report.id}</h3>`;
+				const popup = new mapboxgl.Popup(popupOptions).setHTML(popupContent);
+				marker.setPopup(popup);
+			});
+		}
+	}, [userReportedCrimes]);
 
 	return (
 		<div

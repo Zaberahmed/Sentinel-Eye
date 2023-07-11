@@ -64,6 +64,7 @@ export const findCrimeByMonth = async (month: string) => {
 };
 export const searchCrimesByLocation = async (location: Location) => {
 	try {
+		console.log(location);
 		const crimes = await Crime.find({
 			location: location,
 		});
