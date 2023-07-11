@@ -6,6 +6,7 @@
 	height: 100%;
 	background-color: black;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
@@ -14,7 +15,12 @@
 	max-width: 100%;
 	max-height: 100%;
 	/* animation: fade-in 1s ease-in; */
-	animation: breathing 5s ease-out infinite;
+	animation: breathing 4s ease-out infinite;
+}
+
+.app-name {
+	color: white;
+	font-family: 'Roboto Slab' sans-serif !important;
 }
 
 @keyframes fade-in {
@@ -28,48 +34,69 @@
 
 @-webkit-keyframes breathing {
 	0% {
-		-webkit-transform: scale(0.9);
-		transform: scale(0.9);
+		-webkit-transform: scale(0.6);
+		transform: scale(0.6);
 	}
 
 	25% {
-		-webkit-transform: scale(1);
-		transform: scale(1);
+		-webkit-transform: scale(0.7);
+		transform: scale(0.7);
 	}
 
-	60% {
+	50% {
+		-webkit-transform: scale(0.8);
+		transform: scale(0.8);
+	}
+	75% {
 		-webkit-transform: scale(0.9);
 		transform: scale(0.9);
 	}
 
 	100% {
-		-webkit-transform: scale(0.9);
-		transform: scale(0.9);
+		-webkit-transform: scale(1);
+		transform: scale(1);
 	}
 }
 
 @keyframes breathing {
 	0% {
-		-webkit-transform: scale(0.9);
-		-ms-transform: scale(0.9);
-		transform: scale(0.9);
+		-webkit-transform: scale(0.7);
+		-ms-transform: scale(0.7);
+		transform: scale(0.7);
 	}
 
 	25% {
-		-webkit-transform: scale(1);
-		-ms-transform: scale(1);
-		transform: scale(1);
+		-webkit-transform: scale(0.7);
+		-ms-transform: scale(0.7);
+		transform: scale(0.7);
 	}
 
-	60% {
+	50% {
+		-webkit-transform: scale(0.8);
+		-ms-transform: scale(0.8);
+		transform: scale(0.8);
+	}
+	75% {
 		-webkit-transform: scale(0.9);
 		-ms-transform: scale(0.9);
 		transform: scale(0.9);
 	}
 
 	100% {
-		-webkit-transform: scale(0.9);
-		-ms-transform: scale(0.9);
+		-webkit-transform: scale(1);
+		-ms-transform: scale(1);
+		transform: scale(1);
+	}
+}
+
+@keyframes breathing-in {
+	0% {
+		transform: scale(0.9);
+	}
+	25% {
+		transform: scale(1);
+	}
+	100% {
 		transform: scale(0.9);
 	}
 }

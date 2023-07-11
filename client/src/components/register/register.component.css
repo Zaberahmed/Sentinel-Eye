@@ -1,5 +1,4 @@
-.container {
-	width: 100vw;
+.register-container {
 	height: 100vh;
 	display: flex;
 	flex-direction: column;

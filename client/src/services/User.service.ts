@@ -1,12 +1,40 @@
 const BASE_URL = 'http://localhost:4000';
 import { Report } from '../interfaces/report.interface';
+import { LoggedUser, RegisteredUser } from '../interfaces/user.interface';
 
 interface RegisterResponse {
 	success: boolean;
 	message: string;
 }
-// const token: string | null = localStorage.getItem('accessToken');
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzQXQiOjIwMDQ2NzI3MTk5MTMsInVzZXJJZCI6IjY0YThkMzgwOWVhZjQzMjNiZDYyNWM4YyIsImlhdCI6MTY4OTA1MzUxOX0.aC4PBtepmgd36u5pLyZ8mBKBqXcE5oWThvCjIZrxP6c';
+const token: string | null = localStorage.getItem('accessToken');
+
+interface AccessToken {
+	accessToken: string;
+}
+
+const register = async (user: RegisteredUser): Promise<AccessToken> => {
+	return await fetch(`${BASE_URL}/registration`, {
+		method: 'POST',
+		credentials: 'include',
+		mode: 'cors',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(user),
+	})
+		.then((res) => res.json())
+		.catch((err) => console.log(err));
+};
+
+const login = async (user: LoggedUser): Promise<AccessToken> => {
+	return await fetch(`${BASE_URL}/login`, {
+		method: 'POST',
+		credentials: 'include',
+		mode: 'cors',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(user),
+	})
+		.then((res) => res.json())
+		.catch((err) => console.log(err));
+};
 
 const ReportCrime = async (report: Report): Promise<RegisterResponse> => {
 	return fetch(`${BASE_URL}/create-crime-report`, {
@@ -30,4 +58,4 @@ const GetAllCrime = async (): Promise<Report[]> => {
 		.catch((err) => console.log(err));
 };
 
-export { ReportCrime, GetAllCrime };
+export { register, login, ReportCrime, GetAllCrime };

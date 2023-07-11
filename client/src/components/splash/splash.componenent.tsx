@@ -5,15 +5,15 @@ import './splash.component.css';
 const SplashComponent = () => {
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		const timeout = setTimeout(() => {
-			navigate('/user');
-		}, 2000);
+	// useEffect(() => {
+	// 	const timeout = setTimeout(() => {
+	// 		navigate('/user');
+	// 	}, 2000);
 
-		return () => {
-			clearTimeout(timeout);
-		};
-	}, [navigate]);
+	// 	return () => {
+	// 		clearTimeout(timeout);
+	// 	};
+	// }, [navigate]);
 
 	return (
 		<div className="splash-container">
@@ -22,6 +22,7 @@ const SplashComponent = () => {
 				src="splash-image.png"
 				alt="Splash Image"
 			/>
+			<h1 className="app-name">Sentinel Eye</h1>
 		</div>
 	);
 };

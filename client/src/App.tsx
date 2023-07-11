@@ -10,6 +10,8 @@ import MapContainerComponent from './components/MapContainer/MapContainer.compon
 import { useState } from 'react';
 import { SearchResult } from './interfaces/searchResults.insterface';
 import SplashComponent from './components/splash/splash.componenent';
+import auth from './utils/auth';
+import RegisterComponent from './components/register/register.component';
 
 function App() {
 	const [searchResult, setSearchResult] = useState<SearchResult>({
@@ -17,6 +19,9 @@ function App() {
 		longitude: 51.5549,
 		street: { name: 'On the Pitch - Emirates Stadium, Arsenal Fc' },
 	});
+	const initialState = auth.isAuthenticated();
+	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(initialState);
+
 	return (
 		<Routes>
 			<Route
@@ -24,10 +29,20 @@ function App() {
 				element={<SplashComponent />}></Route>
 			<Route
 				path="/login"
-				element={<LoginComponent />}></Route>
-			{/* <Route
+				element={
+					<LoginComponent
+						isAuthenticated={isAuthenticated}
+						setIsAuthenticated={setIsAuthenticated}
+					/>
+				}></Route>
+			<Route
 				path="/register"
-				element={<RegisterComponent />}></Route> */}
+				element={
+					<RegisterComponent
+						isAuthenticated={isAuthenticated}
+						setIsAuthenticated={setIsAuthenticated}
+					/>
+				}></Route>
 
 			<Route
 				path="user"

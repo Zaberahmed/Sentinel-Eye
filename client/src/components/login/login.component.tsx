@@ -1,13 +1,17 @@
 import './login.component.css';
 import { useState, ChangeEvent, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LoggedUser } from '../../interfaces/user.interface';
+import auth from '../../utils/auth';
+import UserAuthentication from '../../interfaces/authentication';
+import { login } from '../../services/User.service';
 
 const initialState: LoggedUser = {
 	email: '',
 	password: '',
 };
-const LoginComponent = () => {
+
+const LoginComponent = (props: UserAuthentication) => {
 	const navigate = useNavigate();
 	const [state, setState] = useState<LoggedUser>(initialState);
 
@@ -21,17 +25,24 @@ const LoginComponent = () => {
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		const form = event.currentTarget;
-		const formData: FormData = new FormData(form);
-		const user = Object.fromEntries(formData);
-		console.log(user);
+		// const form = event.currentTarget;
+		// const formData: FormData = new FormData(form);
+		// const user = Object.fromEntries(formData);
+
+		// console.log(state);
+		const loginData = await login(state);
+		if (loginData) {
+			localStorage.setItem('accessToken', loginData.accessToken);
+
+			props.setIsAuthenticated(true);
+			auth.login(() => navigate('/user'));
+		}
 	};
 	const validateForm = () => {
 		return !state.email || !state.password;
 	};
 	return (
-		<div className="container">
-			<h2 className="title">Login</h2>
+		<div className="login-container">
 			<form
 				onSubmit={handleSubmit}
 				className="form">
@@ -63,10 +74,18 @@ const LoginComponent = () => {
 						Login
 					</button>
 				</div>
+				<span className="or-text">or</span>
+				<div className="google-button">
+					<button type="submit">Sign in with Google</button>
+				</div>
 			</form>
-			<span className="or-text">or</span>
-			<div className="google-button">
-				<button type="submit">Sign in with Google</button>
+			<div>
+				<p>
+					Don't have an account?{' '}
+					<span>
+						<Link to="/register">Signup</Link>
+					</span>
+				</p>
 			</div>
 		</div>
 	);
