@@ -31,7 +31,7 @@ router.post('/create-crime-report', authenticator, crimeController.makeCrimeRepo
 router.get('/all-crime', authenticator, crimeController.getAllCrime);
 router.get('/find-crime-by-id', authenticator, crimeController.getCrimeById);
 router.get('/find-crime-by-month', authenticator, crimeController.getCrimeByMonth);
-
+router.get('/find-crime-by-location', authenticator, crimeController.getCrimesByLocation);
 //missing report routes
 
 router.post;

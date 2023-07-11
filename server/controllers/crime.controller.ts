@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createCrimeReport, findAllCrime, findCrimeById, findCrimeByMonth } from './../models/crime.model';
+import { createCrimeReport, findAllCrime, findCrimeById, findCrimeByMonth, searchCrimesByLocation } from './../models/crime.model';
 const makeCrimeReport = async (req: Request, res: Response) => {
 	try {
 		const { user_id, category, location, context, date } = req.body;
@@ -37,5 +37,14 @@ const getCrimeByMonth = async (req: Request, res: Response) => {
 		console.log(error);
 	}
 };
+const getCrimesByLocation = async (req: Request, res: Response) => {
+	try {
+		const { location } = req.body;
+		const crimes = await searchCrimesByLocation(location);
+		return res.status(200).send(crimes);
+	} catch (error) {
+		console.log(error);
+	}
+};
 
-export { makeCrimeReport, getAllCrime, getCrimeById, getCrimeByMonth };
+export { makeCrimeReport, getAllCrime, getCrimeById, getCrimeByMonth, getCrimesByLocation };

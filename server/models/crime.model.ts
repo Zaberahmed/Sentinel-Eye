@@ -62,20 +62,10 @@ export const findCrimeByMonth = async (month: string) => {
 		console.log(error);
 	}
 };
-export const searchCrimesWithinRadius = async (latitudeStr: string, longitudeStr: string) => {
+export const searchCrimesByLocation = async (location: Location) => {
 	try {
-		const latitude = parseFloat(latitudeStr);
-		const longitude = parseFloat(longitudeStr);
-
 		const crimes = await Crime.find({
-			location: {
-				$near: {
-					$geometry: {
-						type: 'Point',
-						coordinates: [longitude, latitude],
-					},
-					$maxDistance: 1000,
-			},
+			location: location,
 		});
 
 		return crimes;
@@ -83,4 +73,3 @@ export const searchCrimesWithinRadius = async (latitudeStr: string, longitudeStr
 		console.log(error);
 	}
 };
-
