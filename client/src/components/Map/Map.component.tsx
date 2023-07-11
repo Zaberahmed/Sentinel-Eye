@@ -2,14 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl, { Map, Marker } from 'mapbox-gl';
 import './Map.component.css';
 import { MapboxSearchBox } from '@mapbox/search-js-web';
+import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.insterface';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiemFiZXItYWhtZWQiLCJhIjoiY2xqdXM1bjB4MWU3MjNmbzR2ZzB6emhneCJ9.nSXKxVjpJs9CMWUTIzuX2Q';
 
 interface MapComponentProps {
-	onSearchResult: (result: SearchResult) => void;
+	searchResult: SearchResult;
+	setSearchResult: SetSearchResult;
 }
 
-const MapComponent: React.FC = () => {
+const MapComponent = (props: MapComponentProps) => {
 	const mapContainerRef = useRef<HTMLDivElement>(null);
 	const mapRef = useRef<Map | null>(null);
 	const markerPosition: [number, number] = [-0.1084, 51.5549];
@@ -53,7 +55,11 @@ const MapComponent: React.FC = () => {
 			// });
 			search.addEventListener('retrieve', (event) => {
 				const featureCollection = event.detail;
-				console.log(featureCollection.features[0].geometry.coordinates);
+				console.log(featureCollection);
+				const longitude = featureCollection.features[0].geometry.coordinates[0];
+				const latitude = featureCollection.features[0].geometry.coordinates[1];
+				const street = featureCollection.features[0].properties.name;
+				props.setSearchResult({ longitude, latitude, street });
 			});
 
 			// const geoCoder = new MapboxGeoCoder();

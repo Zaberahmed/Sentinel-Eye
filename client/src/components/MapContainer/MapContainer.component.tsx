@@ -1,9 +1,17 @@
+import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.insterface';
 import MapComponent from '../Map/Map.component';
 
-const MapContainerComponent = () => {
+interface MapContainerProps {
+	searchResult: SearchResult;
+	setSearchResult: SetSearchResult;
+}
+const MapContainerComponent = (props: MapContainerProps) => {
 	return (
 		<div className="map-container">
-			<MapComponent />
+			<MapComponent
+				searchResult={props.searchResult}
+				setSearchResult={props.setSearchResult}
+			/>
 		</div>
 	);
 };
