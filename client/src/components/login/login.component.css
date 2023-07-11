@@ -37,14 +37,13 @@
 }
 
 .login-button button {
-	width: 100%;
 	background-color: #212529;
 	color: #fff;
 	font-size: 1rem;
 	font-weight: bold;
 	padding: 0.5rem 0.75rem;
 	border: none;
-	border-radius: 0.25rem;
+	border-radius: 16px;
 	margin-top: 0.75rem;
 	cursor: pointer;
 	text-align: center;

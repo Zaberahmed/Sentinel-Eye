@@ -67,16 +67,18 @@ const LoginComponent = (props: UserAuthentication) => {
 					value={state.password}
 					onChange={handleChange}
 				/>
-				<div className="login-button">
-					<button
-						type="submit"
-						disabled={validateForm()}>
-						Login
-					</button>
-				</div>
-				<span className="or-text">or</span>
-				<div className="google-button">
-					<button type="submit">Sign in with Google</button>
+				<div>
+					<div className="login-button">
+						<button
+							type="submit"
+							disabled={validateForm()}>
+							Login
+						</button>
+					</div>
+					<span className="or-text">or</span>
+					<div className="google-button">
+						<button type="submit">Sign in with Google</button>
+					</div>
 				</div>
 			</form>
 			<div>
