@@ -9,6 +9,7 @@ import ReportComponent from './components/user report/report.component';
 import MapContainerComponent from './components/MapContainer/MapContainer.component';
 import { useState } from 'react';
 import { SearchResult } from './interfaces/searchResults.insterface';
+import SplashComponent from './components/splash/splash.componenent';
 
 function App() {
 	const [searchResult, setSearchResult] = useState<SearchResult>({
@@ -20,7 +21,7 @@ function App() {
 		<Routes>
 			<Route
 				path="/"
-				element={<LandingComponent />}></Route>
+				element={<SplashComponent />}></Route>
 			<Route
 				path="/login"
 				element={<LoginComponent />}></Route>

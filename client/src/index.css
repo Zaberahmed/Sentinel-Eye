@@ -2,18 +2,19 @@
 
 body {
 	font-family: 'Poppins', sans-serif;
-	background-color: rgb(251, 248, 248);
+	background-color: #f8f9fa;
 }
 
 .primary {
-	background-color: #00b894;
+	background-color: #f8f9fa !important;
 }
 .secondary {
-	background-color: white;
+	background-color: #343a40 !important;
 }
 .accent {
-	background-color: #6bb4b4;
+	background-color: #212529 !important;
 }
+
 .action {
 	background-color: #314866;
 }
