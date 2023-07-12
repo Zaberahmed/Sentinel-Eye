@@ -53,10 +53,10 @@ const RegisterComponent = (props: UserAuthentication) => {
 	};
 	return (
 		<div className="register-container">
-			<h2 className="title">Register</h2>
+			<h2 className="title">Sign Up</h2>
 			<form
 				onSubmit={handleSubmit}
-				className="form">
+				className="register-form">
 				<label htmlFor="name">
 					<b>Name</b>
 				</label>
@@ -143,13 +143,13 @@ const RegisterComponent = (props: UserAuthentication) => {
 					<button
 						type="submit"
 						disabled={validateForm()}>
-						Register
+						Sign Up
 					</button>
 				</div>
-				<span className="or-text">or</span>
+				{/* <span className="or-text">or</span>
 				<div className="google-button">
 					<button type="submit">Sign in with Google</button>
-				</div>
+				</div> */}
 			</form>
 		</div>
 	);

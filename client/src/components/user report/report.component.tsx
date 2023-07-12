@@ -65,10 +65,12 @@ const ReportComponent = (props: ReportComponentProps) => {
 			street: { name: 'On the Pitch - Emirates Stadium, Arsenal Fc' },
 		});
 	};
-
+	const validateReport = (): boolean => {
+		return !category || !date || !location;
+	};
 	return (
 		<div className="report-container">
-			<h2 style={{ textAlign: 'center' }}>Report A Crime</h2>
+			<h2 style={{ textAlign: 'start' }}>Report A Crime</h2>
 
 			<div className="crime-category">
 				<label htmlFor="category">Category: </label>
@@ -83,16 +85,7 @@ const ReportComponent = (props: ReportComponentProps) => {
 				</select>
 			</div>
 
-			<div>
-				<label htmlFor="description">Description: </label>
-				<textarea
-					id="description"
-					value={description}
-					onChange={handleDescriptionChange}
-				/>
-			</div>
-
-			<div>
+			<div className="crime-date">
 				<label htmlFor="date">Date: </label>
 				<input
 					type="date"
@@ -103,7 +96,16 @@ const ReportComponent = (props: ReportComponentProps) => {
 				/>
 			</div>
 
-			<div>
+			<div className="crime-description">
+				<label htmlFor="description">Description: </label>
+				<textarea
+					id="description"
+					value={description}
+					onChange={handleDescriptionChange}
+				/>
+			</div>
+
+			<div className="crime-location">
 				<label htmlFor="location">Location:</label>
 
 				<div className="map">
@@ -113,12 +115,13 @@ const ReportComponent = (props: ReportComponentProps) => {
 					/>
 				</div>
 			</div>
-
-			<button
-				type="submit"
-				onClick={handleButtonClick}>
-				Report
-			</button>
+			<div className="report-button">
+				<button
+					type="submit"
+					onClick={handleButtonClick}>
+					Report
+				</button>
+			</div>
 		</div>
 	);
 };

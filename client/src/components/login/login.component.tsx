@@ -5,7 +5,7 @@ import { LoggedUser } from '../../interfaces/user.interface';
 import auth from '../../utils/auth';
 import UserAuthentication from '../../interfaces/authentication';
 import { login } from '../../services/User.service';
-
+import logo from './../../assets/splash-image.png';
 const initialState: LoggedUser = {
 	email: '',
 	password: '',
@@ -43,9 +43,15 @@ const LoginComponent = (props: UserAuthentication) => {
 	};
 	return (
 		<div className="login-container">
+			<img
+				src={logo}
+				alt="logo image"
+				height={50}
+			/>
+			<h1 style={{ textAlign: 'center' }}>Welcome</h1>
 			<form
 				onSubmit={handleSubmit}
-				className="form">
+				className="login-form">
 				<label htmlFor="email">
 					<b>Email</b>
 				</label>

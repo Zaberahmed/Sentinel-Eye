@@ -1,10 +1,12 @@
 .report-container {
 	max-width: 400px;
+	height: 850px;
 	margin: 0 auto;
 	padding: 20px;
 	background-color: #f8f8f8;
 	border-radius: 5px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	overflow-y: scroll;
 }
 
 .report-container h2 {
@@ -20,6 +22,18 @@
 	display: flex;
 	flex-direction: column;
 }
+.crime-date {
+	display: flex;
+	flex-direction: column;
+}
+.crime-description {
+	display: flex;
+	flex-direction: column;
+}
+.crime-location {
+	display: flex;
+	flex-direction: column;
+}
 
 .report-container label {
 	font-weight: bold;
@@ -32,33 +46,36 @@
 	margin-bottom: 15px;
 	padding: 10px;
 	border: 1px solid #ccc;
-	border-radius: 5px;
+	border-radius: 10px;
 	font-size: 14px;
 }
-.report-form textarea#location {
-	height: 200px;
-	resize: vertical;
+
+.map {
+	padding: 5px;
+	background-color: #f8f8f8;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	height: 300px;
+	margin-bottom: 10px;
 }
 
-.report-container button {
+.report-button {
+	margin-top: 10px;
+	display: flex;
+	justify-content: center;
+}
+
+.report-button button {
+	width: 50%;
 	padding: 10px 20px;
-	background-color: #007bff;
+	background-color: #212529;
 	color: #fff;
 	border: none;
-	border-radius: 5px;
+	border-radius: 16px;
 	font-size: 16px;
 	cursor: pointer;
 }
 
 .report-container button:hover {
-	background-color: #0056b3;
-}
-
-.map {
-	margin-top: 20px;
-	padding: 20px;
-	background-color: #f8f8f8;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	height: 300px;
+	background-color: #464a4e;
 }

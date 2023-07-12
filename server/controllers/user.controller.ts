@@ -27,6 +27,7 @@ const registration = async (req: Request, res: Response) => {
 	} catch (error) {
 		res.status(500);
 		console.log(error);
+		res.send(error);
 	}
 };
 

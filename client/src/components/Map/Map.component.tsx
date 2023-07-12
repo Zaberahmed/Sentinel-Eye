@@ -3,7 +3,7 @@ import mapboxgl, { Map, Marker } from 'mapbox-gl';
 import './Map.component.css';
 import { MapboxSearchBox } from '@mapbox/search-js-web';
 import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.insterface';
-import { GetAllCrime } from '../../services/User.service';
+import { GetAllCrime, GetAllCrimeFromUKAPI } from '../../services/User.service';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiemFiZXItYWhtZWQiLCJhIjoiY2xqdXM1bjB4MWU3MjNmbzR2ZzB6emhneCJ9.nSXKxVjpJs9CMWUTIzuX2Q';
 
@@ -28,7 +28,7 @@ const MapComponent: React.FC<MapComponentProps> = (props: MapComponentProps) => 
 	useEffect(() => {
 		const fetchCrimeReports = async () => {
 			try {
-				const result = await GetAllCrime();
+				const result = await GetAllCrimeFromUKAPI();
 				console.log(result);
 				const convertedData = result.map((report: any) => ({
 					...report,
@@ -81,7 +81,7 @@ const MapComponent: React.FC<MapComponentProps> = (props: MapComponentProps) => 
 				props.setSearchResult({ longitude, latitude, street: { name: street } });
 			});
 
-			fetchCrimeReports();
+			// fetchCrimeReports();
 		}
 
 		return () => {

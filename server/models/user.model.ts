@@ -26,7 +26,7 @@ const userSchema: RegisteredUser = new mongoose.Schema({
 	},
 	age: {
 		type: String,
-		required: true,
+		required: false,
 	},
 	posts: [
 		{

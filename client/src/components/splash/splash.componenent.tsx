@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './splash.component.css';
-import splashimage from './../../../public/splash-image.png';
+import splashimage from './../../assets/splash-image.png';
 const SplashComponent = () => {
 	const navigate = useNavigate();
 	const [image, setImage] = useState<boolean>(false);
 	useEffect(() => {
 		const timeout = setTimeout(() => {
-			navigate('/user');
+			navigate('/login');
 		}, 2300);
 
 		return () => {
