@@ -118,6 +118,7 @@ const ReportComponent = (props: ReportComponentProps) => {
 			<div className="report-button">
 				<button
 					type="submit"
+					disabled={validateReport()}
 					onClick={handleButtonClick}>
 					Report
 				</button>

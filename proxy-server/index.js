@@ -17,8 +17,6 @@ app.get('/uk-crime', async (req, res) => {
 		const { lat, lng, date } = req.query;
 		const data = await axios.get('https://data.police.uk/api/crimes-street/all-crime?' + 'lat=' + lat + '&lng=' + lng + '&date=' + date);
 
-		console.log(Object.keys(data));
-
 		res.send(data.data);
 	} catch (error) {
 		console.log(error);

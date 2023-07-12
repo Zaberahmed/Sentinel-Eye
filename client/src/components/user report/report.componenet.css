@@ -79,3 +79,7 @@
 .report-container button:hover {
 	background-color: #464a4e;
 }
+.report-container button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}

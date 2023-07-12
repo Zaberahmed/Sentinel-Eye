@@ -28,7 +28,7 @@ const MapComponent: React.FC<MapComponentProps> = (props: MapComponentProps) => 
 	useEffect(() => {
 		const fetchCrimeReports = async () => {
 			try {
-				const result = await GetAllCrimeFromUKAPI();
+				const result = await GetAllCrime();
 				console.log(result);
 				const convertedData = result.map((report: any) => ({
 					...report,
@@ -68,7 +68,7 @@ const MapComponent: React.FC<MapComponentProps> = (props: MapComponentProps) => 
 					borderRadius: '10px',
 					boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
 				},
-				cssText: '.Input:active { opacity: 0.5; }',
+				cssText: '.Input:active { opacity: 0.5; }, .SearchBox {display:flex, justify-content:center}',
 			};
 
 			mapRef.current.addControl(search);
