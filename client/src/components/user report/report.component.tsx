@@ -1,10 +1,12 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Report } from '../../interfaces/report.interface';
 import './report.componenet.css';
 import MapComponent from '../Map/Map.component';
 import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.insterface';
 import { ReportCrime } from '../../services/User.service';
 import { useNavigate } from 'react-router-dom';
+import ToastComponent from '../toast/toast.component';
+import ModalComponent from '../modal/modal.component';
 
 interface ReportComponentProps {
 	searchResult: SearchResult;
@@ -15,7 +17,7 @@ const ReportComponent = (props: ReportComponentProps) => {
 	const navigate = useNavigate();
 	const [category, setCategory] = useState('');
 	const [description, setDescription] = useState('');
-
+	const [isReported, setIsReported] = useState(false);
 	const [date, setDate] = useState('');
 	const [formattedDate, setFormattedDate] = useState('');
 
@@ -51,8 +53,8 @@ const ReportComponent = (props: ReportComponentProps) => {
 		console.log(result);
 
 		if (result) {
-			//toaster for completion
-			navigate('/user/discover');
+			setIsReported(true);
+			(window as any).my_modal_5.showModal();
 		}
 
 		setCategory('');
@@ -68,8 +70,21 @@ const ReportComponent = (props: ReportComponentProps) => {
 	const validateReport = (): boolean => {
 		return !category || !date || !location;
 	};
+
+	// useEffect(() => {
+	// 	if (isReported) {
+	// 		const timeout = setTimeout(() => {
+	// 			navigate('/user/discover');
+	// 		}, 2000);
+
+	// 		return () => {
+	// 			clearTimeout(timeout);
+	// 		};
+	// 	}
+	// }, [isReported]);
 	return (
 		<div className="report-container">
+			{isReported && <ToastComponent />}
 			<h2 style={{ textAlign: 'start' }}>Report A Crime</h2>
 
 			<div className="crime-category">
@@ -123,6 +138,7 @@ const ReportComponent = (props: ReportComponentProps) => {
 					Report
 				</button>
 			</div>
+			<ModalComponent />
 		</div>
 	);
 };

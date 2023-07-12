@@ -18,5 +18,9 @@ body {
 }
 
 .action {
-	background-color: #314866;
+	background-color: #314866 !important;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
