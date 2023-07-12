@@ -75,10 +75,10 @@ const LoginComponent = (props: UserAuthentication) => {
 							Login
 						</button>
 					</div>
-					<span className="or-text">or</span>
+					{/* <span className="or-text">or</span>
 					<div className="google-button">
 						<button type="submit">Sign in with Google</button>
-					</div>
+					</div> */}
 				</div>
 			</form>
 			<div>

@@ -70,7 +70,7 @@ const ReportComponent = (props: ReportComponentProps) => {
 		<div className="report-container">
 			<h2 style={{ textAlign: 'center' }}>Report A Crime</h2>
 
-			<div>
+			<div className="crime-category">
 				<label htmlFor="category">Category: </label>
 				<select
 					id="category"

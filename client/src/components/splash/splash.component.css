@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap');
 .splash-container {
 	position: fixed;
 	top: 0;
@@ -15,12 +16,20 @@
 	max-width: 100%;
 	max-height: 100%;
 	/* animation: fade-in 1s ease-in; */
-	animation: breathing 4s ease-out infinite;
+	animation: breathing 5s ease-out infinite;
+}
+
+.splash-imageloaded {
+	max-width: 100%;
+	max-height: 100%;
+	/* animation: fade-in 1s ease-in; */
+	animation: breathing 5s ease-out infinite;
 }
 
 .app-name {
 	color: white;
 	font-family: 'Roboto Slab' sans-serif !important;
+	animation: breathing 5s ease-out infinite;
 }
 
 @keyframes fade-in {

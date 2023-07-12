@@ -1,8 +1,8 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import LandingComponent from './components/landing/landing.component';
+
 import LoginComponent from './components/login/login.component';
-// import RegisterComponent from './components/register/register.component';
+
 import UserPage from './pages/user.page';
 import CommunityComponent from './components/community/community.component';
 import ReportComponent from './components/user report/report.component';
@@ -12,6 +12,7 @@ import { SearchResult } from './interfaces/searchResults.insterface';
 import SplashComponent from './components/splash/splash.componenent';
 import auth from './utils/auth';
 import RegisterComponent from './components/register/register.component';
+import ProfileComponent from './components/Profile/Profile.component';
 
 function App() {
 	const [searchResult, setSearchResult] = useState<SearchResult>({
@@ -66,6 +67,12 @@ function App() {
 							setSearchResult={setSearchResult}
 						/>
 					}></Route>
+				<Route
+					path="community"
+					element={<CommunityComponent />}></Route>
+				<Route
+					path="profile"
+					element={<ProfileComponent />}></Route>
 			</Route>
 		</Routes>
 	);

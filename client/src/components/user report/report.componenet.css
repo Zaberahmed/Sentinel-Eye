@@ -16,6 +16,10 @@
 	display: flex;
 	flex-direction: column;
 }
+.crime-category {
+	display: flex;
+	flex-direction: column;
+}
 
 .report-container label {
 	font-weight: bold;

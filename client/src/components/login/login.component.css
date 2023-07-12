@@ -15,13 +15,14 @@
 }
 
 .form {
+	color: #343a40;
 	width: 80%;
 	max-width: 20rem;
 	padding: 1rem;
 	display: flex;
 	flex-direction: column;
 	border-radius: 0.5rem; /* Add border radius */
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adjust box shadow */
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Adjust box shadow */
 }
 
 .form label {
@@ -30,13 +31,19 @@
 
 .form input[type='email'],
 .form input[type='password'] {
-	border: 1px solid #000;
+	border: 1px solid#343a40;
 	border-radius: 1rem;
 	padding: 0.5rem;
 	margin-bottom: 0.5rem;
 }
 
+.login-button {
+	display: flex;
+	justify-content: center;
+}
 .login-button button {
+	width: 50%;
+	align-items: center;
 	background-color: #212529;
 	color: #fff;
 	font-size: 1rem;
