@@ -3,7 +3,7 @@ import { Report } from '../../interfaces/report.interface';
 import './report.componenet.css';
 import MapComponent from '../Map/Map.component';
 import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.insterface';
-import { ReportCrime } from '../../services/User.service';
+import { ReportCrime } from '../../services/user.service';
 import { useNavigate } from 'react-router-dom';
 import ToastComponent from '../toast/toast.component';
 import ModalComponent from '../modal/modal.component';

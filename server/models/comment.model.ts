@@ -11,7 +11,7 @@ const commentSchema: Comment = new mongoose.Schema({
 		require: false,
 	},
 	text: {
-		type: [String],
+		type: String,
 		require: true,
 	},
 });

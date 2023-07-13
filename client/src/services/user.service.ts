@@ -1,20 +1,17 @@
 const BASE_URL = 'http://localhost:4000';
-const UK_URL = 'https://data.police.uk/api/crimes-at-location?date=2017-02&lat=52.629729&lng=-1.131592';
 
+import { Post } from '../interfaces/post.interface';
 import { Report } from '../interfaces/report.interface';
 import { LoggedUser, RegisteredUser } from '../interfaces/user.interface';
 
 interface RegisterResponse {
 	success: boolean;
 	message: string;
+	accessToken: string;
 }
 const token: string | null = localStorage.getItem('accessToken');
 
-interface AccessToken {
-	accessToken: string;
-}
-
-const register = async (user: RegisteredUser): Promise<AccessToken> => {
+const register = async (user: RegisteredUser): Promise<RegisteredUser> => {
 	return await fetch(`${BASE_URL}/registration`, {
 		method: 'POST',
 		credentials: 'include',
@@ -26,7 +23,7 @@ const register = async (user: RegisteredUser): Promise<AccessToken> => {
 		.catch((err) => console.log(err));
 };
 
-const login = async (user: LoggedUser): Promise<AccessToken> => {
+const login = async (user: LoggedUser): Promise<RegisterResponse> => {
 	return await fetch(`${BASE_URL}/login`, {
 		method: 'POST',
 		credentials: 'include',
@@ -50,18 +47,7 @@ const ReportCrime = async (report: Report): Promise<RegisterResponse> => {
 		.catch((err) => console.log(err));
 };
 
-const GetAllCrimeFromUKAPI = async (): Promise<Report[]> => {
-	const res = await fetch(`http://localhost:5000/uk-crime?lat=52.629729&lng=-1.131592&date=2022-01`, {
-		method: 'GET',
-		headers: { 'Content-Type': 'application/json' },
-	});
-
-	const data = await res.json();
-
-	return data;
-};
-
-const GetAllCrime = async (): Promise<Report[]> => {
+const GetAllCrime = async (): Promise<RegisterResponse> => {
 	const res = await fetch(`${BASE_URL}/all-crime`, {
 		method: 'GET',
 		credentials: 'include',
@@ -72,4 +58,16 @@ const GetAllCrime = async (): Promise<Report[]> => {
 	return data;
 };
 
-export { register, login, ReportCrime, GetAllCrime, GetAllCrimeFromUKAPI };
+const createPost = async (post: Post): Promise<RegisterResponse> => {
+	return await fetch(`${BASE_URL}/create-post`, {
+		method: 'POST',
+		credentials: 'include',
+		mode: 'cors',
+		headers: { 'Content-Type': 'application/json', authorization: `Bearer ${token}` },
+		body: JSON.stringify(post),
+	})
+		.then((res) => res.json())
+		.catch((err) => console.log(err));
+};
+
+export { register, login, ReportCrime, GetAllCrime, createPost };

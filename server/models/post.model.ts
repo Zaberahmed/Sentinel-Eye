@@ -11,7 +11,7 @@ const postSchema: Post = new mongoose.Schema({
 		require: true,
 	},
 	text: {
-		type: [String],
+		type: String,
 		require: true,
 	},
 	timestamp: {

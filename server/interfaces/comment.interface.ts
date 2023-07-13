@@ -1,5 +1,5 @@
 export interface Comment {
 	timestamp?: string;
-	text: string[];
+	text: string;
 	user_id: string;
 }

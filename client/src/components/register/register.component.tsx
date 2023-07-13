@@ -5,7 +5,7 @@ import { RegisteredUser } from '../../interfaces/user.interface';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import { signup, signupGoogle } from '../../redux/actions/auth';
-import { login, register } from '../../services/User.service';
+import { login, register } from '../../services/user.service';
 import auth from '../../utils/auth';
 import UserAuthentication from '../../interfaces/authentication.interface';
 

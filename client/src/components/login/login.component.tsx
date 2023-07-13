@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LoggedUser } from '../../interfaces/user.interface';
 import auth from '../../utils/auth';
 import UserAuthentication from '../../interfaces/authentication.interface';
-import { login } from '../../services/User.service';
+import { login } from '../../services/user.service';
 import logo from './../../assets/splash-image.png';
 const initialState: LoggedUser = {
 	email: '',
