@@ -2,6 +2,10 @@ import { Post } from './../interfaces/post.interface';
 const mongoose = require('mongoose');
 
 const postSchema: Post = new mongoose.Schema({
+	type: {
+		type: String,
+		require: true,
+	},
 	user_id: {
 		type: mongoose.Schema.Types.ObjectId,
 		require: true,
@@ -29,6 +33,7 @@ const createPost = async (post: Post) => {
 	try {
 		const time = new Date().getTime().toString();
 		return await Post.create({
+			type: post.type,
 			text: post.text,
 			user_id: post.user_id,
 			timestamp: time,
@@ -53,5 +58,12 @@ const findPostById = async (id: string) => {
 		console.log(error);
 	}
 };
+const findPostByType = async (type: string) => {
+	try {
+		return await Post.findOne({ type: type });
+	} catch (error) {
+		console.log(error);
+	}
+};
 
-export { createPost, findAllPost, findPostById };
+export { createPost, findAllPost, findPostById, findPostByType };

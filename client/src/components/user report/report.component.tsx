@@ -7,6 +7,7 @@ import { ReportCrime } from '../../services/User.service';
 import { useNavigate } from 'react-router-dom';
 import ToastComponent from '../toast/toast.component';
 import ModalComponent from '../modal/modal.component';
+import ReportMapComponent from '../ReportMap/ReportMap.component';
 
 interface ReportComponentProps {
 	searchResult: SearchResult;
@@ -124,7 +125,7 @@ const ReportComponent = (props: ReportComponentProps) => {
 				<label htmlFor="location">Location:</label>
 
 				<div className="map">
-					<MapComponent
+					<ReportMapComponent
 						searchResult={props.searchResult}
 						setSearchResult={props.setSearchResult}
 					/>

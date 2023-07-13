@@ -18,7 +18,8 @@ router.delete('/logout', authenticator, userController.logout);
 
 router.post('/create-post', authenticator, postController.makePost);
 router.get('/all-post', authenticator, postController.getAllPost);
-router.get('/find-post', authenticator, postController.getPost);
+router.get('/find-post-by-id', authenticator, postController.getPostById);
+router.get('/find-post-by-type', authenticator, postController.getPostByType);
 
 //comment routes
 

@@ -50,12 +50,7 @@ function App() {
 				element={<UserPage />}>
 				<Route
 					index
-					element={
-						<MapContainerComponent
-							searchResult={searchResult}
-							setSearchResult={setSearchResult}
-						/>
-					}></Route>
+					element={<CommunityComponent />}></Route>
 				<Route
 					path="discover"
 					element={

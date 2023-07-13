@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { signup, signupGoogle } from '../../redux/actions/auth';
 import { login, register } from '../../services/User.service';
 import auth from '../../utils/auth';
-import UserAuthentication from '../../interfaces/authentication';
+import UserAuthentication from '../../interfaces/authentication.interface';
 
 const initialState: RegisteredUser = {
 	name: '',
