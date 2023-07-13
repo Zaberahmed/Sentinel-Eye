@@ -4,6 +4,7 @@ const postController = require('./../controllers/post.controller');
 const commentController = require('./../controllers/comment.controller');
 const crimeController = require('./../controllers/crime.controller');
 const authenticator = require('./../middleware/authenticator');
+import axios from 'axios';
 import { Request, Response } from 'express';
 
 //user routes
@@ -35,5 +36,15 @@ router.get('/find-crime-by-month', authenticator, crimeController.getCrimeByMont
 router.get('/find-crime-by-location', authenticator, crimeController.getCrimesByLocation);
 //missing report routes
 
-router.post;
+//UK police data
+router.get('/uk-crime', async (req: Request, res: Response) => {
+	try {
+		const { lat, lng, date } = req.query;
+		const data = await axios.get('https://data.police.uk/api/crimes-street/all-crime?' + 'lat=' + lat + '&lng=' + lng + '&date=' + date);
+
+		res.send(data.data);
+	} catch (error) {
+		console.log(error);
+	}
+});
 export { router };

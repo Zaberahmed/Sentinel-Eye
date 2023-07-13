@@ -1,24 +1,27 @@
 import { FormEvent, useState } from 'react';
 import './postFormModal.component.css';
 import { createPost } from '../../services/user.service';
+
 interface Props {
 	toggleModal: () => void;
 }
+
 const PostFormModal = (props: Props) => {
 	const [text, setText] = useState<string>('');
 
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		const user_id = '64a8d3809eaf4323bd625c8c';
+		const user_id = 'Sk.Zaber Ahmed';
 		const type = 'general';
-		const post = { user_id, type, text };
+		const timestamp = new Date().getTime().toString();
+		const post = { user_id, type, timestamp, text };
 		const result = await createPost(post);
 		console.log(result);
 		setText('');
 		props.toggleModal();
 	};
 	const validateForm = () => {
-		return false;
+		return !text;
 	};
 	return (
 		<div className="modal-overlay">
@@ -46,7 +49,8 @@ const PostFormModal = (props: Props) => {
 					<div className="form-actions">
 						<button
 							type="submit"
-							disabled={validateForm()}>
+							disabled={validateForm()}
+							className="submit-button">
 							Done
 						</button>
 						<button

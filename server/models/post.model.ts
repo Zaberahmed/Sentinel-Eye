@@ -16,7 +16,7 @@ const postSchema: Post = new mongoose.Schema({
 	},
 	timestamp: {
 		type: String,
-		require: false,
+		require: true,
 	},
 	comments: [
 		{
@@ -31,12 +31,11 @@ const Post = mongoose.model('Post', postSchema);
 
 const createPost = async (post: Post) => {
 	try {
-		const time = new Date().getTime().toString();
 		return await Post.create({
 			type: post.type,
 			text: post.text,
 			user_id: post.user_id,
-			timestamp: time,
+			timestamp: post.timestamp,
 		});
 	} catch (error) {
 		console.log(error);

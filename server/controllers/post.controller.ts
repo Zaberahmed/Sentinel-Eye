@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import { createPost, findAllPost, findPostById } from './../models/post.model';
 const makePost = async (req: Request, res: Response) => {
 	try {
-		const { type, user_id, text } = req.body;
-		const post = { type, user_id, text };
+		const { type, user_id, text, timestamp } = req.body;
+		const post = { type, user_id, text, timestamp };
 		const newPost = await createPost(post);
 		return res.status(201).send(newPost);
 	} catch (error) {

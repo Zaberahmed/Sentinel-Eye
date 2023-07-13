@@ -20,3 +20,21 @@
 	top: 7px;
 	right: -50px;
 }
+
+.popup-content {
+	padding: 16px;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.report-id {
+	font-size: 18px;
+	margin-bottom: 8px;
+}
+
+.context,
+.category,
+.street-name {
+	margin-bottom: 4px;
+}

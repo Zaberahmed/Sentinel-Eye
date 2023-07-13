@@ -35,7 +35,7 @@ const login = async (user: LoggedUser): Promise<RegisterResponse> => {
 		.catch((err) => console.log(err));
 };
 
-const ReportCrime = async (report: Report): Promise<RegisterResponse> => {
+const ReportCrime = async (report: Report): Promise<Report> => {
 	return fetch(`${BASE_URL}/create-crime-report`, {
 		method: 'POST',
 		credentials: 'include',
@@ -47,18 +47,18 @@ const ReportCrime = async (report: Report): Promise<RegisterResponse> => {
 		.catch((err) => console.log(err));
 };
 
-const GetAllCrime = async (): Promise<RegisterResponse> => {
+const GetAllCrime = async (): Promise<Report[]> => {
 	const res = await fetch(`${BASE_URL}/all-crime`, {
 		method: 'GET',
 		credentials: 'include',
 		mode: 'cors',
-		headers: { 'Content-Type': 'application/json' },
+		headers: { 'Content-Type': 'application/json', authorization: `Bearer ${token}` },
 	});
 	const data = await res.json();
 	return data;
 };
 
-const createPost = async (post: Post): Promise<RegisterResponse> => {
+const createPost = async (post: Post): Promise<Post> => {
 	return await fetch(`${BASE_URL}/create-post`, {
 		method: 'POST',
 		credentials: 'include',
@@ -70,4 +70,15 @@ const createPost = async (post: Post): Promise<RegisterResponse> => {
 		.catch((err) => console.log(err));
 };
 
-export { register, login, ReportCrime, GetAllCrime, createPost };
+const GetAllPost = async (): Promise<Post[]> => {
+	const res = await fetch(`${BASE_URL}/all-post`, {
+		method: 'GET',
+		credentials: 'include',
+		mode: 'cors',
+		headers: { 'Content-Type': 'application/json', authorization: `Bearer ${token}` },
+	});
+	const data = await res.json();
+	return data;
+};
+
+export { register, login, ReportCrime, GetAllCrime, createPost, GetAllPost };

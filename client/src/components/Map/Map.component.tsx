@@ -3,7 +3,8 @@ import mapboxgl, { Map, Marker } from 'mapbox-gl';
 import './Map.component.css';
 import { MapboxSearchBox } from '@mapbox/search-js-web';
 import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.insterface';
-import { GetAllCrime, GetAllCrimeFromUKAPI } from '../../services/user.service';
+import { GetAllCrime } from '../../services/user.service';
+import { GetAllCrimeFromUKAPI } from '../../services/uk.service';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiemFiZXItYWhtZWQiLCJhIjoiY2xqdXM1bjB4MWU3MjNmbzR2ZzB6emhneCJ9.nSXKxVjpJs9CMWUTIzuX2Q';
 
@@ -12,13 +13,7 @@ interface MapComponentProps {
 	setSearchResult: SetSearchResult;
 }
 
-interface Report {
-	id: string;
-	latitude: number;
-	longitude: number;
-}
-
-const MapComponent: React.FC<MapComponentProps> = (props: MapComponentProps) => {
+const MapComponent = (props: MapComponentProps) => {
 	const mapContainerRef = useRef<HTMLDivElement>(null);
 	const mapRef = useRef<Map | null>(null);
 	const markerPosition: [number, number] = [-0.1084, 51.5549];
@@ -28,7 +23,7 @@ const MapComponent: React.FC<MapComponentProps> = (props: MapComponentProps) => 
 	useEffect(() => {
 		const fetchCrimeReports = async () => {
 			try {
-				const result = await GetAllCrime();
+				const result = await GetAllCrimeFromUKAPI();
 				console.log(result);
 				const convertedData = result.map((report: any) => ({
 					...report,
@@ -54,7 +49,8 @@ const MapComponent: React.FC<MapComponentProps> = (props: MapComponentProps) => 
 			const marker = new Marker({ color: '#e303fc', anchor: 'center' }).setLngLat(markerPosition).addTo(mapRef.current);
 
 			const popupOptions: mapboxgl.PopupOptions = { closeOnClick: true, closeButton: true };
-			const popup = new mapboxgl.Popup(popupOptions).setHTML('<h3>Popup Content</h3><p>This is the popup content.</p>');
+			const popup = new mapboxgl.Popup(popupOptions).setHTML('<h3>Home</h3>');
+			popup.addClassName('popup-content');
 
 			marker.setPopup(popup);
 
@@ -81,7 +77,7 @@ const MapComponent: React.FC<MapComponentProps> = (props: MapComponentProps) => 
 				props.setSearchResult({ longitude, latitude, street: { name: street } });
 			});
 
-			// fetchCrimeReports();
+			fetchCrimeReports();
 		}
 
 		return () => {
@@ -97,7 +93,9 @@ const MapComponent: React.FC<MapComponentProps> = (props: MapComponentProps) => 
 				const marker = new Marker({ color: '#ff0000', anchor: 'center' }).setLngLat([report.location.longitude, report.location.latitude]).addTo(mapRef.current!);
 
 				const popupOptions: mapboxgl.PopupOptions = { closeOnClick: true, closeButton: true };
-				const popupContent = `<h3>Report ID: ${report.id}</h3>`;
+				const popupContent = `<h3>Category: ${report.category}</h3>
+  <p>Context: ${report.context}</p>
+  <p>Street Name: ${report.location.street.name}</p>`;
 				const popup = new mapboxgl.Popup(popupOptions).setHTML(popupContent);
 				marker.setPopup(popup);
 			});
