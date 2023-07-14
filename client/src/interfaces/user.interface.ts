@@ -1,3 +1,5 @@
+import { Post } from './post.interface';
+
 export interface RegisteredUser {
 	_id?: string;
 	name: string;
@@ -6,11 +8,12 @@ export interface RegisteredUser {
 	gender: string;
 	age: string;
 	address: string;
+	posts?: Post[];
+	crimeReports?: Report[];
+	// missingReports?: Missing[];
 }
 export interface LoggedUser {
 	_id?: string;
 	email: string;
 	password: string;
 }
-
-// export type User = RegisteredUser | LoggedUser;

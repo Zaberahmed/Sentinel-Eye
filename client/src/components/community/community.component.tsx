@@ -5,15 +5,23 @@ import { GrAdd } from 'react-icons/gr';
 import { useEffect, useState } from 'react';
 import PostFormModal from './postFormModal.component';
 import { Post } from '../../interfaces/post.interface';
-import { GetAllPost } from '../../services/user.service';
+import { GetAllPost, Profile } from '../../services/user.service';
 import formatTime from '../../utils/formatTime';
+import { RegisteredUser } from '../../interfaces/user.interface';
+import CommentPanel from './commentPanel.component';
 
 const CommunityComponent = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [posts, setPosts] = useState<Post[]>([]);
+	const [user, setuser] = useState<RegisteredUser>();
+	const [openPostId, setOpenPostId] = useState<string>('');
 
 	const toggleModal = () => {
 		setShowModal(!showModal);
+	};
+	const toggleCommentPanel = (postId: string, post: Post) => {
+		setOpenPostId(postId === openPostId ? '' : postId);
+
 	};
 	useEffect(() => {
 		const fetchAllPosts = async () => {
@@ -28,6 +36,18 @@ const CommunityComponent = () => {
 			}
 		};
 		fetchAllPosts();
+	}, []);
+	useEffect(() => {
+		const fetchUser = async () => {
+			try {
+				const result = await Profile();
+				console.log(result);
+				setuser(result);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		fetchUser();
 	}, []);
 
 	return (
@@ -56,7 +76,7 @@ const CommunityComponent = () => {
 								alt="Profile Picture"
 							/>
 							<div className="profile-info">
-								<h3 className="profile-name">Sk. Zaber Ahmed</h3>
+								<h3 className="profile-name">{post.user_name}</h3>
 								<p className="post-time">{formatTime(parseInt(post.timestamp ?? ''))}</p>
 							</div>
 						</div>
@@ -64,12 +84,23 @@ const CommunityComponent = () => {
 
 						<div className="post-actions">
 							<button className="review-button">Like</button>
-							<button className="comment-button">Comment</button>
+							<button
+								className="comment-button"
+								onClick={() => post._id && toggleCommentPanel(post._id, post)}>
+								Comment
+							</button>
 						</div>
+						{openPostId === post._id && <CommentPanel post={post} />}
 					</div>
 				))}
 			</div>
-			{showModal && <PostFormModal toggleModal={toggleModal} />}
+			{showModal && (
+				<PostFormModal
+					key={user?._id}
+					setPosts={setPosts}
+					toggleModal={toggleModal}
+				/>
+			)}
 		</div>
 	);
 };

@@ -26,7 +26,7 @@ router.get('/find-post-by-type', authenticator, postController.getPostByType);
 
 router.post('/create-comment', authenticator, commentController.makeComment);
 router.get('/all-comment', authenticator, commentController.getAllComment);
-router.get('/find-comment', authenticator, commentController.getComment);
+router.post('/find-comment-by-id', authenticator, commentController.getCommentById);
 
 //Crime report routes
 router.post('/create-crime-report', authenticator, crimeController.makeCrimeReport);

@@ -5,5 +5,6 @@ export interface Post {
 	text: string;
 	timestamp: string;
 	user_id: string;
+	user_name: string;
 	comments?: Comment[];
 }

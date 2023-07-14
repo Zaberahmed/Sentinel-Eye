@@ -10,7 +10,7 @@ export interface RegisteredUser {
 	age: string;
 	address: string;
 	posts?: Post[];
-	comments?: Comment[];
+
 	crimeReports?: Crime[];
 	missingReports?: Missing[];
 }

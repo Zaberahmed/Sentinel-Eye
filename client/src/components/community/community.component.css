@@ -74,6 +74,7 @@
 	color: #999;
 }
 .post-content {
+	width: 85%;
 	background-color: rgba(148, 140, 140, 0.103);
 	color: #343a40;
 	padding: 12px 20px;
@@ -99,6 +100,7 @@
 	margin-top: 10px;
 	display: flex;
 	gap: 8px;
+	justify-content: flex-end;
 }
 
 .review-button,

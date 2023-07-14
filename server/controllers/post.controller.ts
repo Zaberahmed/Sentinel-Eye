@@ -1,11 +1,21 @@
 import { Request, Response } from 'express';
 import { createPost, findAllPost, findPostById } from './../models/post.model';
+import { findUserById } from './../models/user.model';
+import { getSession } from './../middleware/sessionManagement';
 const makePost = async (req: Request, res: Response) => {
 	try {
-		const { type, user_id, text, timestamp } = req.body;
-		const post = { type, user_id, text, timestamp };
-		const newPost = await createPost(post);
-		return res.status(201).send(newPost);
+		const token = req.headers.authorization?.split(' ')[1];
+		if (token) {
+			const session = getSession(token);
+			const { type, user_id,user_name, text, timestamp } = req.body;
+			const post = { type, user_id,user_name, text, timestamp };
+			const newPost = await createPost(post);
+			const { _id } = newPost;
+			const user = await findUserById(session.userId);
+			user.posts.push(_id);
+			await user.save();
+			return res.status(201).send(newPost);
+		}
 	} catch (error) {
 		console.log(error);
 	}

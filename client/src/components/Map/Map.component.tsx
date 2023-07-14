@@ -5,6 +5,7 @@ import { MapboxSearchBox } from '@mapbox/search-js-web';
 import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.insterface';
 import { GetAllCrime } from '../../services/user.service';
 import { GetAllCrimeFromUKAPI } from '../../services/uk.service';
+import { Popover } from '@mapbox/search-js-web/dist/utils/popover';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiemFiZXItYWhtZWQiLCJhIjoiY2xqdXM1bjB4MWU3MjNmbzR2ZzB6emhneCJ9.nSXKxVjpJs9CMWUTIzuX2Q';
 
@@ -48,7 +49,7 @@ const MapComponent = (props: MapComponentProps) => {
 
 			const marker = new Marker({ color: '#e303fc', anchor: 'center' }).setLngLat(markerPosition).addTo(mapRef.current);
 
-			const popupOptions: mapboxgl.PopupOptions = { closeOnClick: true, closeButton: true };
+			const popupOptions: mapboxgl.PopupOptions = { closeOnClick: true, closeButton: true, className: 'example' };
 			const popup = new mapboxgl.Popup(popupOptions).setHTML('<h3>Home</h3>');
 			popup.addClassName('popup-content');
 
@@ -64,7 +65,7 @@ const MapComponent = (props: MapComponentProps) => {
 					borderRadius: '10px',
 					boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
 				},
-				cssText: '.Input:active { opacity: 0.5; }, .SearchBox {display:flex, justify-content:center}',
+				cssText: '.Input:active { opacity: 0.5; }, .SearchBox {display:flex, justify-content:center,padding: 20px}',
 			};
 
 			mapRef.current.addControl(search);
@@ -97,6 +98,7 @@ const MapComponent = (props: MapComponentProps) => {
   <p>Context: ${report.context}</p>
   <p>Street Name: ${report.location.street.name}</p>`;
 				const popup = new mapboxgl.Popup(popupOptions).setHTML(popupContent);
+
 				marker.setPopup(popup);
 			});
 		}

@@ -10,6 +10,10 @@ const postSchema: Post = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		require: true,
 	},
+	user_name: {
+		type: String,
+		require: true,
+	},
 	text: {
 		type: String,
 		require: true,
@@ -36,6 +40,7 @@ const createPost = async (post: Post) => {
 			text: post.text,
 			user_id: post.user_id,
 			timestamp: post.timestamp,
+			user_name: post.user_name,
 		});
 	} catch (error) {
 		console.log(error);

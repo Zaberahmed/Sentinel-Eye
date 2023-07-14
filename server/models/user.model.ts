@@ -35,13 +35,7 @@ const userSchema: RegisteredUser = new mongoose.Schema({
 			require: false,
 		},
 	],
-	comments: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Comment',
-			require: false,
-		},
-	],
+
 	crimeReports: [
 		{
 			type: mongoose.Schema.Types.ObjectId,

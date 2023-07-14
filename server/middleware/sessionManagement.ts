@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const SECRET_KEY = 'HELLO_WORLD';//process.env
+const SECRET_KEY = 'HELLO_WORLD'; //process.env
 const blokcedList: string[] = [];
 
 const createSession = (userId: string) => {
@@ -33,4 +33,4 @@ const destroySession = (token: string) => {
 	return true;
 };
 
-module.exports = { createSession, getSession, destroySession };
+export { createSession, getSession, destroySession };

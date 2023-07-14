@@ -1,5 +1,7 @@
 export interface Comment {
-	timestamp?: string;
+	timestamp: string;
 	text: string;
+	post_id: string;
 	user_id: string;
+	user_name: string;
 }

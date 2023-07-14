@@ -3,6 +3,7 @@ const BASE_URL = 'http://localhost:4000';
 import { Post } from '../interfaces/post.interface';
 import { Report } from '../interfaces/report.interface';
 import { LoggedUser, RegisteredUser } from '../interfaces/user.interface';
+import { Comment } from '../interfaces/comment.interface';
 
 interface RegisterResponse {
 	success: boolean;
@@ -81,4 +82,38 @@ const GetAllPost = async (): Promise<Post[]> => {
 	return data;
 };
 
-export { register, login, ReportCrime, GetAllCrime, createPost, GetAllPost };
+const Profile = async (): Promise<RegisteredUser> => {
+	const res = await fetch(`${BASE_URL}/profile`, {
+		method: 'GET',
+		credentials: 'include',
+		mode: 'cors',
+		headers: { 'Content-Type': 'application/json', authorization: `Bearer ${token}` },
+	});
+	const data = await res.json();
+	return data;
+};
+
+const createComment = async (comment: Comment): Promise<Comment> => {
+	return await fetch(`${BASE_URL}/create-comment`, {
+		method: 'POST',
+		credentials: 'include',
+		mode: 'cors',
+		headers: { 'Content-Type': 'application/json', authorization: `Bearer ${token}` },
+		body: JSON.stringify(comment),
+	})
+		.then((res) => res.json())
+		.catch((err) => console.log(err));
+};
+const getCommentById = async (id: Object): Promise<Comment> => {
+	return await fetch(`${BASE_URL}/find-comment-by-id`, {
+		method: 'POST',
+		credentials: 'include',
+		mode: 'cors',
+		headers: { 'Content-Type': 'application/json', authorization: `Bearer ${token}` },
+		body: JSON.stringify(id),
+	})
+		.then((res) => res.json())
+		.catch((err) => console.log(err));
+};
+
+export { register, login, ReportCrime, GetAllCrime, createPost, GetAllPost, Profile, createComment, getCommentById };
