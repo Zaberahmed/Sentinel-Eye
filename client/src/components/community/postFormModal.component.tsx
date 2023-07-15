@@ -61,15 +61,7 @@ const PostFormModal = (props: Props) => {
 							placeholder="Enter your post text"
 							onChange={(event) => setText(event.target.value)}></textarea>
 					</div>
-					<div className="form-group">
-						<label htmlFor="post-image">Add an image</label>
-						<input
-							type="file"
-							id="post-image"
-							name="post-image"
-							accept="image/*"
-						/>
-					</div>
+
 					<div className="form-actions">
 						<button
 							type="submit"

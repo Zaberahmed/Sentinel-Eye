@@ -33,14 +33,16 @@ const CommentPanel = (props: CommentPanelProps) => {
 	useEffect(() => {
 		const fetchComments = async () => {
 			if (props.post.comments?.length) {
-				props.post.comments.forEach(async (id) => {
-					const result = await getCommentById({ _id: id });
-
-					setComments((prevState: Comment[]) => [...prevState, result]);
-				});
+				const fetchedComments = await Promise.all(
+					props.post.comments.map(async (id) => {
+						const result = await getCommentById({ _id: id });
+						return result;
+					})
+				);
+				setComments(fetchedComments);
 			}
 		};
-		console.log(comments);
+
 		fetchComments();
 	}, []);
 
@@ -67,7 +69,7 @@ const CommentPanel = (props: CommentPanelProps) => {
 			) : (
 				<>
 					{comments?.map((comment) => (
-						<div key={comment._id}>{comment.text}</div>
+						<div key={comment.timestamp}>{comment.text}</div>
 					))}
 				</>
 			)}

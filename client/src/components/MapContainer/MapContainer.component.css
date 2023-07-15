@@ -1,0 +1,33 @@
+.toggle-container {
+	position: absolute;
+	top: 100px;
+	right: 5px;
+	z-index: 1;
+	padding: 4px;
+	display: flex;
+	flex-direction: column;
+	width: 15%;
+}
+
+.source-toggle-button {
+	padding: 8px 10px;
+	border: none;
+	border-radius: 50%;
+	background-color: #fff;
+	color: #212529;
+	font-weight: bold;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	font-size: 12px;
+}
+
+.style-toggle-button {
+	margin-top: 8px;
+	padding: 8px 12px;
+	border: none;
+	border-radius: 50%;
+	background-color: #fff;
+	color: #212529;
+	font-weight: bold;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	font-size: 12px;
+}

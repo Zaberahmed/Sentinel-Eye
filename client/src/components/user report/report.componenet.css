@@ -43,7 +43,6 @@
 .report-container select,
 .report-container textarea,
 .report-container input {
-	margin-bottom: 15px;
 	padding: 10px;
 	border: 1px solid #ccc;
 	border-radius: 10px;
