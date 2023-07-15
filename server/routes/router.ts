@@ -58,9 +58,9 @@ router.get('/uk-crime', async (req: Request, res: Response) => {
 			return categories;
 		}, {});
 
-		console.log(categorizedData['violent-crime']);
+		// console.log(categorizedData['violent-crime']);
 
-		res.send(data.data);
+		res.send(categorizedData['violent-crime']);
 	} catch (error) {
 		console.log(error);
 	}

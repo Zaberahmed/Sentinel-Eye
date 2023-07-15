@@ -5,6 +5,7 @@ import { MapboxSearchBox } from '@mapbox/search-js-web';
 import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.insterface';
 import { GetAllCrime } from '../../services/user.service';
 import { GetAllCrimeFromUKAPI } from '../../services/uk.service';
+import { colorMarker } from '../../utils/colorMarker';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiemFiZXItYWhtZWQiLCJhIjoiY2xqdXM1bjB4MWU3MjNmbzR2ZzB6emhneCJ9.nSXKxVjpJs9CMWUTIzuX2Q';
 
@@ -98,15 +99,19 @@ const MapComponent = (props: MapComponentProps) => {
 	useEffect(() => {
 		if (mapRef.current && ReportedCrimes.length > 0) {
 			if (currentMarkers) {
-				console.log(currentMarkers.length);
 				currentMarkers.forEach((marker) => marker.remove());
 				currentMarkers = [];
 			}
 			console.log('reported crimes:', ReportedCrimes);
-			console.log(currentMarkers.length);
+
 			ReportedCrimes.forEach((report) => {
-				const marker = new Marker({ color: '#ff0000', anchor: 'center' }).setLngLat([report.location.longitude, report.location.latitude]).addTo(mapRef.current!);
+				const category = report.category;
+				const markerColor = colorMarker[category];
+				const marker = new Marker({ color: markerColor, anchor: 'center' }).setLngLat([report.location.longitude, report.location.latitude]).addTo(mapRef.current!);
 				currentMarkers.push(marker);
+				// const el = document.createElement('div');
+				// const width = 27
+				// const height = 41
 
 				const popupOptions: mapboxgl.PopupOptions = { closeOnClick: true, closeButton: true };
 				const popupContent = `<h3>Category: ${report.category}</h3>
