@@ -48,29 +48,6 @@ const MapComponent = (props: MapComponentProps) => {
 	};
 
 	useEffect(() => {
-		// const fetchCrimeReports = async () => {
-		// 	try {
-		// 		let result;
-
-		// 		if (props.dataSource === 'police') {
-		// 			// console.log(props.searchResult);
-		// 			result = await GetAllCrimeFromUKAPI(props.searchResult.longitude, props.searchResult.latitude);
-		// 		} else {
-		// 			result = await GetAllCrime();
-		// 		}
-		// 		// console.log('result:', result);
-		// 		const convertedData = result.map((report: any) => ({
-		// 			...report,
-		// 			longitude: parseFloat(report.location.longitude),
-		// 			latitude: parseFloat(report.location.latitude),
-		// 		}));
-
-		// 		setReportedCrimes(convertedData);
-		// 	} catch (error) {
-		// 		console.log(error);
-		// 	}
-		// };
-
 		if (mapContainerRef.current) {
 			mapRef.current = new mapboxgl.Map({
 				container: mapContainerRef.current,
@@ -79,7 +56,7 @@ const MapComponent = (props: MapComponentProps) => {
 				zoom: 16,
 			});
 
-			const marker = new Marker({ color: '#e303fc', anchor: 'center' }).setLngLat(markerPosition).addTo(mapRef.current);
+			const marker = new Marker({ color: '#e303fc', anchor: 'center', draggable: true }).setLngLat(markerPosition).addTo(mapRef.current);
 
 			const popupOptions: mapboxgl.PopupOptions = { closeOnClick: true, closeButton: true, className: 'example' };
 			const popup = new mapboxgl.Popup(popupOptions).setHTML('<h3>Home</h3>');
@@ -109,7 +86,6 @@ const MapComponent = (props: MapComponentProps) => {
 				const street = featureCollection.features[0].properties.name;
 				props.setSearchResult({ longitude, latitude, street: { name: street } });
 			});
-			// fetchCrimeReports();
 		}
 
 		return () => {
@@ -120,29 +96,6 @@ const MapComponent = (props: MapComponentProps) => {
 	}, [props.dataSource, props.mapStyle]);
 
 	useEffect(() => {
-		// const fetchCrimeReports = async () => {
-		// 	try {
-		// 		let result;
-
-		// 		if (props.dataSource === 'police') {
-		// 			console.log(props.searchResult);
-		// 			result = await GetAllCrimeFromUKAPI(props.searchResult.longitude, props.searchResult.latitude);
-		// 		} else {
-		// 			result = await GetAllCrime();
-		// 		}
-		// 		console.log('result:', result);
-		// 		const convertedData = result.map((report: any) => ({
-		// 			...report,
-		// 			longitude: parseFloat(report.location.longitude),
-		// 			latitude: parseFloat(report.location.latitude),
-		// 		}));
-
-		// 		setReportedCrimes(convertedData);
-		// 	} catch (error) {
-		// 		console.log(error);
-		// 	}
-		// };
-
 		if (mapRef.current && ReportedCrimes.length > 0) {
 			if (currentMarkers) {
 				console.log(currentMarkers.length);

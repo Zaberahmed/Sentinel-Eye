@@ -42,7 +42,7 @@ const ReportMapComponent = (props: MapComponentProps) => {
 					borderRadius: '10px',
 					boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
 				},
-				cssText: '.Input:active { opacity: 0.5; }, .SearchBox {display:flex, justify-content:center}',
+				cssText: '.Input:active { opacity: 0.5; }, .Actionicon .SearchIcon {display:none}',
 			};
 
 			mapRef.current.addControl(search);

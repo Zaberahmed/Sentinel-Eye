@@ -6,7 +6,7 @@
 	padding: 4px;
 	display: flex;
 	flex-direction: column;
-	width: 15%;
+	width: 50px;
 }
 
 .source-toggle-button {
@@ -21,7 +21,7 @@
 }
 
 .style-toggle-button {
-	margin-top: 8px;
+	margin-top: 18px;
 	padding: 8px 12px;
 	border: none;
 	border-radius: 50%;

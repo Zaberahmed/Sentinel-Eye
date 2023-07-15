@@ -7,6 +7,8 @@ const authenticator = require('./../middleware/authenticator');
 import axios from 'axios';
 import { Request, Response } from 'express';
 
+const categorizedData = [];
+const excludedCategories = ['other-theft', 'other-crime'];
 //user routes
 router.post('/registration', userController.registration);
 router.post('/login', userController.login);
@@ -41,6 +43,22 @@ router.get('/uk-crime', async (req: Request, res: Response) => {
 	try {
 		const { lat, lng, date } = req.query;
 		const data = await axios.get('https://data.police.uk/api/crimes-street/all-crime?' + 'lat=' + lat + '&lng=' + lng + '&date=' + date);
+		//categorization logic
+
+		const categorizedData = data.data.reduce((categories: any, report: any) => {
+			const { category } = report;
+			if (!excludedCategories.includes(category)) {
+				if (categories.hasOwnProperty(category)) {
+					categories[category].push(report);
+				} else {
+					categories[category] = [report];
+				}
+			}
+
+			return categories;
+		}, {});
+
+		console.log(categorizedData['violent-crime']);
 
 		res.send(data.data);
 	} catch (error) {

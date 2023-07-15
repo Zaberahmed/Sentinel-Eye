@@ -1,0 +1,4 @@
+.mapboxgl-ctrl-top-right .mapboxgl-ctrl {
+	float: right !important;
+	margin: 10px 3px 0px 0px !important;
+}
