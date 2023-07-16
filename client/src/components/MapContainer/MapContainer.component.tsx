@@ -13,6 +13,7 @@ interface MapContainerProps {
 const MapContainerComponent = (props: MapContainerProps) => {
 	const [dataSource, setDataSource] = useState<'police' | 'user'>('user');
 	const [mapStyle, setMapStyle] = useState<'streets-v11' | 'dark-v10'>('streets-v11');
+	const [category, setCategory] = useState('violent-crime');
 
 	const handleToggleDataSource = () => {
 		setDataSource(dataSource === 'police' ? 'user' : 'police');
@@ -20,6 +21,10 @@ const MapContainerComponent = (props: MapContainerProps) => {
 	const handleChangeMapStyle = () => {
 		setMapStyle(mapStyle === 'streets-v11' ? 'dark-v10' : 'streets-v11');
 	};
+	const handleCategoryToggle = (selectedCategory: string) => {
+		setCategory(selectedCategory);
+	};
+	const categories = ['violent-crime', 'vehicle-crime', 'other-theft', 'burglary'];
 
 	return (
 		<div className="map-container">
@@ -35,12 +40,25 @@ const MapContainerComponent = (props: MapContainerProps) => {
 					<CgStyle size={20} />
 				</button>
 			</div>
+			{dataSource === 'police' && (
+				<div className="category-container">
+					{categories.map((cat) => (
+						<button
+							key={cat}
+							className={`category-toggle-button${category === cat ? ' active' : ''}`}
+							onClick={() => handleCategoryToggle(cat)}>
+							{cat}
+						</button>
+					))}
+				</div>
+			)}
 
 			<MapComponent
 				searchResult={props.searchResult}
 				setSearchResult={props.setSearchResult}
 				dataSource={dataSource}
 				mapStyle={mapStyle}
+				category={category}
 			/>
 		</div>
 	);

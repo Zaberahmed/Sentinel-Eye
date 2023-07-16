@@ -41,7 +41,7 @@ router.get('/find-crime-by-location', authenticator, crimeController.getCrimesBy
 //UK police data
 router.get('/uk-crime', async (req: Request, res: Response) => {
 	try {
-		const { lat, lng, date } = req.query;
+		const { lat, lng, date, crime_category } = req.query;
 		const data = await axios.get('https://data.police.uk/api/crimes-street/all-crime?' + 'lat=' + lat + '&lng=' + lng + '&date=' + date);
 		//categorization logic
 
@@ -60,7 +60,9 @@ router.get('/uk-crime', async (req: Request, res: Response) => {
 
 		// console.log(categorizedData['violent-crime']);
 
-		res.send(categorizedData['violent-crime']);
+		const selectedData = categorizedData[crime_category as string];
+
+		res.send(selectedData);
 	} catch (error) {
 		console.log(error);
 	}

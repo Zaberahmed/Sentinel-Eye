@@ -14,6 +14,7 @@ interface MapComponentProps {
 	setSearchResult: SetSearchResult;
 	dataSource: string;
 	mapStyle: string;
+	category:string
 }
 
 const MapComponent = (props: MapComponentProps) => {
@@ -31,7 +32,7 @@ const MapComponent = (props: MapComponentProps) => {
 
 			if (props.dataSource === 'police') {
 				// console.log(props.searchResult);
-				result = await GetAllCrimeFromUKAPI(props.searchResult.longitude, props.searchResult.latitude);
+				result = await GetAllCrimeFromUKAPI(props.searchResult.longitude, props.searchResult.latitude,props.category);
 			} else {
 				result = await GetAllCrime();
 			}
@@ -126,7 +127,7 @@ const MapComponent = (props: MapComponentProps) => {
 
 	useEffect(() => {
 		fetchCrimeReports();
-	}, [props.searchResult]);
+	}, [props.searchResult,props.category]);
 
 	return (
 		<div
