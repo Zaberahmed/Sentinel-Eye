@@ -14,7 +14,7 @@ router.post('/registration', userController.registration);
 router.post('/login', userController.login);
 router.get('/profile', authenticator, userController.profile);
 router.get('/users', authenticator, userController.getAllUser);
-router.get('/user', authenticator, userController.getUser);
+router.post('/user', authenticator, userController.getUser);
 router.delete('/logout', authenticator, userController.logout);
 
 //post routes
@@ -23,6 +23,7 @@ router.post('/create-post', authenticator, postController.makePost);
 router.get('/all-post', authenticator, postController.getAllPost);
 router.get('/find-post-by-id', authenticator, postController.getPostById);
 router.get('/find-post-by-type', authenticator, postController.getPostByType);
+router.put('/update-post', authenticator, postController.updatePost)
 
 //comment routes
 

@@ -6,4 +6,5 @@ export interface Post {
 	user_id: string;
 	user_name: string;
 	comments?: Comment[];
+	isVerified: boolean;
 }

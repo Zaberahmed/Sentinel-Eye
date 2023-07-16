@@ -29,6 +29,10 @@ const postSchema: Post = new mongoose.Schema({
 			require: false,
 		},
 	],
+	isVerified: {
+		type: Boolean,
+		default: false,
+	},
 });
 
 const Post = mongoose.model('Post', postSchema);
@@ -41,6 +45,7 @@ const createPost = async (post: Post) => {
 			user_id: post.user_id,
 			timestamp: post.timestamp,
 			user_name: post.user_name,
+			isVerified: post.isVerified,
 		});
 	} catch (error) {
 		console.log(error);
@@ -70,4 +75,15 @@ const findPostByType = async (type: string) => {
 	}
 };
 
-export { createPost, findAllPost, findPostById, findPostByType };
+const updateIsVerified = async (id: string) => {
+	try {
+		const post = await Post.findOne({ _id: id });
+		post.isVerified = true;
+		await post.save();
+		return post;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export { createPost, findAllPost, findPostById, findPostByType, updateIsVerified };

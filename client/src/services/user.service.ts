@@ -91,6 +91,17 @@ const GetAllPost = async (): Promise<Post[]> => {
 	const data = await res.json();
 	return data;
 };
+const UpdatePost = async (id: Object): Promise<Post[]> => {
+	const res = await fetch(`${BASE_URL}/update-post`, {
+		method: 'PUT',
+		credentials: 'include',
+		mode: 'cors',
+		headers: { 'Content-Type': 'application/json', authorization: `Bearer ${token}` },
+		body: JSON.stringify(id),
+	});
+	const data = await res.json();
+	return data;
+};
 
 const Profile = async (): Promise<RegisteredUser> => {
 	const res = await fetch(`${BASE_URL}/profile`, {
@@ -98,6 +109,18 @@ const Profile = async (): Promise<RegisteredUser> => {
 		credentials: 'include',
 		mode: 'cors',
 		headers: { 'Content-Type': 'application/json', authorization: `Bearer ${token}` },
+	});
+	const data = await res.json();
+	return data;
+};
+
+const GetUser = async (id: Object): Promise<RegisteredUser> => {
+	const res = await fetch(`${BASE_URL}/user`, {
+		method: 'POST',
+		credentials: 'include',
+		mode: 'cors',
+		headers: { 'Content-Type': 'application/json', authorization: `Bearer ${token}` },
+		body: JSON.stringify(id),
 	});
 	const data = await res.json();
 	return data;
@@ -126,4 +149,4 @@ const getCommentById = async (id: Object): Promise<Comment> => {
 		.catch((err) => console.log(err));
 };
 
-export { register, login, logout, ReportCrime, GetAllCrime, createPost, GetAllPost, Profile, createComment, getCommentById };
+export { register, login, logout, ReportCrime, GetUser, GetAllCrime, createPost, GetAllPost, UpdatePost, Profile, createComment, getCommentById };

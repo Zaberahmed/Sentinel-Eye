@@ -5,16 +5,18 @@ import { GrAdd } from 'react-icons/gr';
 import { useEffect, useState } from 'react';
 import PostFormModal from './postFormModal.component';
 import { Post } from '../../interfaces/post.interface';
-import { GetAllPost, Profile } from '../../services/user.service';
+import { GetAllPost, GetUser, Profile, UpdatePost } from '../../services/user.service';
 import formatTime from '../../utils/formatTime';
 import { RegisteredUser } from '../../interfaces/user.interface';
 import CommentPanel from './commentPanel.component';
+import calculateEuclideanDistance from '../../utils/calculateDistance';
 
 const CommunityComponent = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [posts, setPosts] = useState<Post[]>([]);
 	const [user, setuser] = useState<RegisteredUser>();
 	const [openPostId, setOpenPostId] = useState<string>('');
+	const [verify, setVerify] = useState<boolean>(false);
 
 	const toggleModal = () => {
 		setShowModal(!showModal);
@@ -22,11 +24,27 @@ const CommunityComponent = () => {
 	const toggleCommentPanel = (postId: string, post: Post) => {
 		setOpenPostId(postId === openPostId ? '' : postId);
 	};
+	const handleVerify = async (post: Post) => {
+		const result = await GetUser({ _id: post.user_id });
+
+		const address_one = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${result?.address}.json?access_token=pk.eyJ1IjoiemFiZXItYWhtZWQiLCJhIjoiY2xqdXM1bjB4MWU3MjNmbzR2ZzB6emhneCJ9.nSXKxVjpJs9CMWUTIzuX2Q`).then((res) => res.json());
+		const address_two = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${user?.address}.json?access_token=pk.eyJ1IjoiemFiZXItYWhtZWQiLCJhIjoiY2xqdXM1bjB4MWU3MjNmbzR2ZzB6emhneCJ9.nSXKxVjpJs9CMWUTIzuX2Q`).then((res) => res.json());
+
+		const coordinates_one = address_one.features[0].geometry.coordinates;
+		const coordinates_two = address_two.features[0].geometry.coordinates;
+
+		// if (coordinates_one === coordinates_two) console.log('Yes');
+		if (calculateEuclideanDistance(coordinates_one, coordinates_two) < 100) {
+			//update the property of the post.
+			const result = await UpdatePost({ _id: post._id });
+			console.log(result);
+		}
+	};
 	useEffect(() => {
 		const fetchAllPosts = async () => {
 			try {
 				const results = await GetAllPost();
-				console.log(results);
+
 				const sortedResult = results.sort((a: Post, b: Post) => parseInt(b.timestamp) - parseInt(a.timestamp));
 
 				setPosts(sortedResult);
@@ -40,7 +58,7 @@ const CommunityComponent = () => {
 		const fetchUser = async () => {
 			try {
 				const result = await Profile();
-				console.log(result);
+
 				setuser(result);
 			} catch (error) {
 				console.log(error);
@@ -67,7 +85,7 @@ const CommunityComponent = () => {
 				{posts.map((post) => (
 					<div
 						className="post-content"
-						key={post._id}>
+						key={post.timestamp}>
 						<div className="post-header">
 							<img
 								src={logo}
@@ -82,7 +100,14 @@ const CommunityComponent = () => {
 						<p className="post-text">{post.text}</p>
 
 						<div className="post-actions">
-							<button className="review-button">Verify</button>
+							{user?._id !== post.user_id ? (
+								<button
+									className="review-button"
+									onClick={() => handleVerify(post)}>
+									{post.isVerified ? 'Verified' : 'Verify'}
+								</button>
+							) : null}
+
 							<button
 								className="comment-button"
 								onClick={() => post._id && toggleCommentPanel(post._id, post)}>

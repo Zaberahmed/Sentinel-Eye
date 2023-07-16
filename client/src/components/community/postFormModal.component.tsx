@@ -19,7 +19,7 @@ const PostFormModal = (props: Props) => {
 			const user_name = user.name;
 			const type = 'general';
 			const timestamp = new Date().getTime().toString();
-			const post = { user_id, user_name, type, timestamp, text };
+			const post = { user_id, user_name, type, timestamp, text, isVerified: false };
 			const result = await createPost(post);
 			console.log(result);
 			setText('');

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createPost, findAllPost, findPostById } from './../models/post.model';
+import { createPost, findAllPost, findPostById, updateIsVerified } from './../models/post.model';
 import { findUserById } from './../models/user.model';
 import { getSession } from './../middleware/sessionManagement';
 const makePost = async (req: Request, res: Response) => {
@@ -7,8 +7,8 @@ const makePost = async (req: Request, res: Response) => {
 		const token = req.headers.authorization?.split(' ')[1];
 		if (token) {
 			const session = getSession(token);
-			const { type, user_id,user_name, text, timestamp } = req.body;
-			const post = { type, user_id,user_name, text, timestamp };
+			const { type, user_id, user_name, text, timestamp, isVerified } = req.body;
+			const post = { type, user_id, user_name, text, timestamp, isVerified };
 			const newPost = await createPost(post);
 			const { _id } = newPost;
 			const user = await findUserById(session.userId);
@@ -46,5 +46,14 @@ const getPostByType = async (req: Request, res: Response) => {
 		console.log(error);
 	}
 };
+const updatePost = async (req: Request, res: Response) => {
+	try {
+		const { _id } = req.body;
+		const post = await updateIsVerified(_id);
+		return res.status(200).send(post);
+	} catch (error) {
+		console.log(error);
+	}
+};
 
-export { makePost, getAllPost, getPostById, getPostByType };
+export { makePost, getAllPost, getPostById, getPostByType, updatePost };
