@@ -35,6 +35,16 @@ const login = async (user: LoggedUser): Promise<RegisterResponse> => {
 		.then((res) => res.json())
 		.catch((err) => console.log(err));
 };
+const logout = async (): Promise<RegisterResponse> => {
+	return await fetch(`${BASE_URL}/logout`, {
+		method: 'DELETE',
+		credentials: 'include',
+		mode: 'cors',
+		headers: { 'Content-Type': 'application/json', authorization: `Bearer ${token}` },
+	})
+		.then((res) => res.json())
+		.catch((err) => console.log(err));
+};
 
 const ReportCrime = async (report: Report): Promise<Report> => {
 	return fetch(`${BASE_URL}/create-crime-report`, {
@@ -116,4 +126,4 @@ const getCommentById = async (id: Object): Promise<Comment> => {
 		.catch((err) => console.log(err));
 };
 
-export { register, login, ReportCrime, GetAllCrime, createPost, GetAllPost, Profile, createComment, getCommentById };
+export { register, login, logout, ReportCrime, GetAllCrime, createPost, GetAllPost, Profile, createComment, getCommentById };
