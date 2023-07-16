@@ -8,7 +8,7 @@ import CommunityComponent from './components/community/community.component';
 import ReportComponent from './components/user report/report.component';
 import MapContainerComponent from './components/MapContainer/MapContainer.component';
 import { useState } from 'react';
-import { SearchResult } from './interfaces/searchResults.insterface';
+import { SearchResult } from './interfaces/searchResults.interface';
 import SplashComponent from './components/splash/splash.componenent';
 import auth from './utils/auth';
 import RegisterComponent from './components/register/register.component';

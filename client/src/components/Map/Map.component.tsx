@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import mapboxgl, { Map, Marker } from 'mapbox-gl';
 import './Map.component.css';
 import { MapboxSearchBox } from '@mapbox/search-js-web';
-import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.insterface';
+import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.interface';
 import { GetAllCrime } from '../../services/user.service';
 import { GetAllCrimeFromUKAPI } from '../../services/uk.service';
 import { colorMarker } from '../../utils/colorMarker';
@@ -14,7 +14,7 @@ interface MapComponentProps {
 	setSearchResult: SetSearchResult;
 	dataSource: string;
 	mapStyle: string;
-	category:string
+	category: string;
 }
 
 const MapComponent = (props: MapComponentProps) => {
@@ -32,7 +32,7 @@ const MapComponent = (props: MapComponentProps) => {
 
 			if (props.dataSource === 'police') {
 				// console.log(props.searchResult);
-				result = await GetAllCrimeFromUKAPI(props.searchResult.longitude, props.searchResult.latitude,props.category);
+				result = await GetAllCrimeFromUKAPI(props.searchResult.longitude, props.searchResult.latitude, props.category);
 			} else {
 				result = await GetAllCrime();
 			}
@@ -55,7 +55,7 @@ const MapComponent = (props: MapComponentProps) => {
 				container: mapContainerRef.current,
 				style: `mapbox://styles/mapbox/${props.mapStyle}?optimize=true`,
 				center: [-0.1084, 51.5549],
-				zoom: 16,
+				zoom: 14,
 			});
 
 			const marker = new Marker({ color: '#e303fc', anchor: 'center' }).setLngLat(markerPosition).addTo(mapRef.current);
@@ -123,11 +123,11 @@ const MapComponent = (props: MapComponentProps) => {
 				marker.setPopup(popup);
 			});
 		}
-	}, [ReportedCrimes]);
+	}, [ReportedCrimes, props.category]);
 
 	useEffect(() => {
 		fetchCrimeReports();
-	}, [props.searchResult,props.category]);
+	}, [props.searchResult, props.category]);
 
 	return (
 		<div

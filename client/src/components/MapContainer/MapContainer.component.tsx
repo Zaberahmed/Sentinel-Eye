@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.insterface';
+import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.interface';
 import MapComponent from '../Map/Map.component';
 import './MapContainer.component.css';
 import { MdLocalPolice } from 'react-icons/md';
@@ -24,7 +24,8 @@ const MapContainerComponent = (props: MapContainerProps) => {
 	const handleCategoryToggle = (selectedCategory: string) => {
 		setCategory(selectedCategory);
 	};
-	const categories = ['violent-crime', 'vehicle-crime', 'other-theft', 'burglary'];
+
+	const categories = ['anti-social-behaviour', 'bicycle-theft', 'burglary', 'criminal-damage-arson', 'drugs', 'possession-of-weapons', 'public-order', 'robbery', 'shoplifting', 'theft-from-the-person', 'vehicle-crime', 'violent-crime'];
 
 	return (
 		<div className="map-container">

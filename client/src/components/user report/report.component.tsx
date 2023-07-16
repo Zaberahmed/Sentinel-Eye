@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Report } from '../../interfaces/report.interface';
 import './report.componenet.css';
 import MapComponent from '../Map/Map.component';
-import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.insterface';
+import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.interface';
 import { ReportCrime } from '../../services/user.service';
 import { useNavigate } from 'react-router-dom';
 import ToastComponent from '../toast/toast.component';

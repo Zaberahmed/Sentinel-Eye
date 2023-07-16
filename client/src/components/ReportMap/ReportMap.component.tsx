@@ -2,7 +2,8 @@ import { useEffect, useRef } from 'react';
 import mapboxgl, { Map, Marker } from 'mapbox-gl';
 
 import { MapboxSearchBox } from '@mapbox/search-js-web';
-import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.insterface';
+import { SearchResult, SetSearchResult } from '../../interfaces/searchResults.interface';
+import { icons } from './icon';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiemFiZXItYWhtZWQiLCJhIjoiY2xqdXM1bjB4MWU3MjNmbzR2ZzB6emhneCJ9.nSXKxVjpJs9CMWUTIzuX2Q';
 
@@ -27,7 +28,7 @@ const ReportMapComponent = (props: MapComponentProps) => {
 
 			const marker = new Marker({ color: '#e303fc', anchor: 'center', draggable: true }).setLngLat(markerPosition).addTo(mapRef.current);
 
-			const popupOptions: mapboxgl.PopupOptions = { closeOnClick: true, closeButton: true, };
+			const popupOptions: mapboxgl.PopupOptions = { closeOnClick: true, closeButton: true };
 			const popup = new mapboxgl.Popup(popupOptions).setHTML('<h3>Popup Content</h3><p>This is the popup content.</p>');
 
 			marker.setPopup(popup);
@@ -39,11 +40,15 @@ const ReportMapComponent = (props: MapComponentProps) => {
 					fontFamily: 'Poppins, sans-serif',
 					unit: '15px',
 					padding: '0.5em',
-					borderRadius: '10px',
+					borderRadius: '5px',
 					boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
 				},
-				cssText: '.Input:active { opacity: 0.5; }, .Actionicon .SearchIcon {display:none}',
+				cssText: '.Input:active { opacity: 0.5; }, input::placeholder{color:transparent}, .Actionicon .SearchIcon{display:none}',
 			};
+			search.theme = {
+				icons: icons,
+			};
+			search.placeholder = 'O';
 
 			mapRef.current.addControl(search);
 
