@@ -24,9 +24,7 @@ function ProfileComponent(props: UserAuthentication) {
 	const handleLogout = async () => {
 		try {
 			await logout();
-
 			localStorage.removeItem('accessToken');
-
 			navigate('/login');
 		} catch (error) {
 			console.log(error);
@@ -46,7 +44,7 @@ function ProfileComponent(props: UserAuthentication) {
 				<p>Location: {profile?.address}</p>
 				<p>Email: {profile?.email}</p>
 				<div className="logout-button">
-					<button onClick={() => handleLogout}>Logout</button>
+					<button onClick={() => handleLogout()}>Logout</button>
 				</div>
 			</div>
 		</div>

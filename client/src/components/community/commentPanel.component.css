@@ -2,10 +2,11 @@
 	padding: 20px;
 	background-color: #f5f5f5;
 	border-radius: 8px;
+	margin-top: 10px;
 }
 
 .comment-panel h3 {
-	font-size: 24px;
+	font-size: 12px;
 	margin-bottom: 10px;
 }
 
@@ -27,6 +28,36 @@
 
 .comment-item:last-child {
 	margin-bottom: 0;
+}
+
+.comment-header {
+	display: flex;
+	align-items: center;
+	margin-bottom: 2px;
+}
+.comment-profile-picture {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.comment-profile-info {
+	flex: 1;
+	display: flex;
+	align-items: baseline;
+}
+.comment-profile-name {
+	margin: 0;
+	font-size: 2px;
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+.post-time {
+	margin: 0;
+	font-size: 8px;
+	color: #999;
 }
 
 .comment-item .comment-text {

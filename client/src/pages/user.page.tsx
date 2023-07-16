@@ -1,11 +1,21 @@
-import { Link, Outlet, NavLink } from 'react-router-dom';
+import { Link, Outlet, NavLink, useNavigate } from 'react-router-dom';
 import './user.page.css';
 import { RiCompassDiscoverLine } from 'react-icons/ri';
 import { MdGroups } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
 import { GoReport } from 'react-icons/go';
 import UserAuthentication from '../interfaces/authentication.interface';
+import { useEffect } from 'react';
+
 const UserPage = (props: UserAuthentication) => {
+	const navigate = useNavigate();
+	useEffect(() => {
+		const checkcredential = () => {
+			if (!props.isAuthenticated && !localStorage.getItem('accessToken')) navigate('/login');
+		};
+		checkcredential();
+	}, []);
+
 	return (
 		<div className="user-page-container">
 			<div className="component-container">

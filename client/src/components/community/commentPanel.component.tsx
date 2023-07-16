@@ -5,6 +5,8 @@ import { Profile, createComment, getCommentById } from '../../services/user.serv
 import { RegisteredUser } from '../../interfaces/user.interface';
 import { Comment } from '../../interfaces/comment.interface';
 import './commentPanel.component.css';
+import formatTime from '../../utils/formatTime';
+import pp from './../../assets/PP.jpg';
 
 interface CommentPanelProps {
 	post: Post;
@@ -73,6 +75,17 @@ const CommentPanel = (props: CommentPanelProps) => {
 						<div
 							className="comment-item"
 							key={comment.timestamp}>
+							<div className="comment-header">
+								<img
+									src={pp}
+									className="comment-profile-picture"
+									alt="Profile Picture"
+								/>
+								<div className="comment-profile-info">
+									<h3 className="comment-profile-name">{comment.user_name}</h3>
+									<p className="comment-time">{formatTime(parseInt(comment.timestamp))}</p>
+								</div>
+							</div>
 							<div className="comment-text">{comment.text}</div>
 						</div>
 					))}
