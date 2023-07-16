@@ -58,7 +58,7 @@ const MapComponent = (props: MapComponentProps) => {
 				zoom: 16,
 			});
 
-			const marker = new Marker({ color: '#e303fc', anchor: 'center', draggable: true }).setLngLat(markerPosition).addTo(mapRef.current);
+			const marker = new Marker({ color: '#e303fc', anchor: 'center' }).setLngLat(markerPosition).addTo(mapRef.current);
 
 			const popupOptions: mapboxgl.PopupOptions = { closeOnClick: true, closeButton: true, className: 'example' };
 			const popup = new mapboxgl.Popup(popupOptions).setHTML('<h3>Home</h3>');

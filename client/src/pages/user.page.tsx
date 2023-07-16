@@ -4,7 +4,8 @@ import { RiCompassDiscoverLine } from 'react-icons/ri';
 import { MdGroups } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
 import { GoReport } from 'react-icons/go';
-const UserPage = () => {
+import UserAuthentication from '../interfaces/authentication.interface';
+const UserPage = (props: UserAuthentication) => {
 	return (
 		<div className="user-page-container">
 			<div className="component-container">

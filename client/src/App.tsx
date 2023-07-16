@@ -47,7 +47,12 @@ function App() {
 
 			<Route
 				path="user"
-				element={<UserPage />}>
+				element={
+					<UserPage
+						isAuthenticated={isAuthenticated}
+						setIsAuthenticated={setIsAuthenticated}
+					/>
+				}>
 				<Route
 					index
 					element={<CommunityComponent />}></Route>
@@ -72,7 +77,12 @@ function App() {
 					element={<CommunityComponent />}></Route>
 				<Route
 					path="profile"
-					element={<ProfileComponent />}></Route>
+					element={
+						<ProfileComponent
+							isAuthenticated={isAuthenticated}
+							setIsAuthenticated={setIsAuthenticated}
+						/>
+					}></Route>
 			</Route>
 		</Routes>
 	);

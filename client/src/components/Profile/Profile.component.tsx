@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { RegisteredUser } from '../../interfaces/user.interface';
 import { Profile, logout } from '../../services/user.service';
 import { useNavigate } from 'react-router-dom';
+import UserAuthentication from '../../interfaces/authentication.interface';
 
-function ProfileComponent() {
+function ProfileComponent(props: UserAuthentication) {
 	const [profile, setProfile] = useState<RegisteredUser>();
 	const navigate = useNavigate();
 

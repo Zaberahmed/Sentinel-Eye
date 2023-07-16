@@ -25,9 +25,9 @@ const ReportMapComponent = (props: MapComponentProps) => {
 				zoom: 16,
 			});
 
-			const marker = new Marker({ color: '#e303fc', anchor: 'center' }).setLngLat(markerPosition).addTo(mapRef.current);
+			const marker = new Marker({ color: '#e303fc', anchor: 'center', draggable: true }).setLngLat(markerPosition).addTo(mapRef.current);
 
-			const popupOptions: mapboxgl.PopupOptions = { closeOnClick: true, closeButton: true };
+			const popupOptions: mapboxgl.PopupOptions = { closeOnClick: true, closeButton: true, };
 			const popup = new mapboxgl.Popup(popupOptions).setHTML('<h3>Popup Content</h3><p>This is the popup content.</p>');
 
 			marker.setPopup(popup);
