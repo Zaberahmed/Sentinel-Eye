@@ -1,0 +1,12 @@
+#my_modal_5 {
+	border-radius: 10px;
+	border: none;
+}
+.btn {
+	padding: 0.5rem;
+	background-color: #212529;
+	color: aliceblue;
+	border-radius: 10px;
+	border: none;
+	outline: none;
+}

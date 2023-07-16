@@ -21,7 +21,6 @@ const CommunityComponent = () => {
 	};
 	const toggleCommentPanel = (postId: string, post: Post) => {
 		setOpenPostId(postId === openPostId ? '' : postId);
-
 	};
 	useEffect(() => {
 		const fetchAllPosts = async () => {
@@ -83,7 +82,7 @@ const CommunityComponent = () => {
 						<p className="post-text">{post.text}</p>
 
 						<div className="post-actions">
-							<button className="review-button">Like</button>
+							<button className="review-button">Verify</button>
 							<button
 								className="comment-button"
 								onClick={() => post._id && toggleCommentPanel(post._id, post)}>

@@ -4,6 +4,7 @@ import { Post } from '../../interfaces/post.interface';
 import { Profile, createComment, getCommentById } from '../../services/user.service';
 import { RegisteredUser } from '../../interfaces/user.interface';
 import { Comment } from '../../interfaces/comment.interface';
+import './commentPanel.component.css';
 
 interface CommentPanelProps {
 	post: Post;
@@ -67,17 +68,22 @@ const CommentPanel = (props: CommentPanelProps) => {
 			{props.post.comments?.length === 0 ? (
 				<p>No comments yet.</p>
 			) : (
-				<>
+				<div className="comment-list">
 					{comments?.map((comment) => (
-						<div key={comment.timestamp}>{comment.text}</div>
+						<div
+							className="comment-item"
+							key={comment.timestamp}>
+							<div className="comment-text">{comment.text}</div>
+						</div>
 					))}
-				</>
+				</div>
 			)}
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
 					addComment();
-				}}>
+				}}
+				className="comment-form">
 				<input
 					type="text"
 					value={newComment}
@@ -87,7 +93,7 @@ const CommentPanel = (props: CommentPanelProps) => {
 				<button
 					type="submit"
 					disabled={validateForm()}>
-					Add Comment
+					Add
 				</button>
 			</form>
 		</div>

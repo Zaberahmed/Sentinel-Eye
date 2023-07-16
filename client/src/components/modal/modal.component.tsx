@@ -1,3 +1,5 @@
+import './modal.component.css';
+import { GiCheckMark } from 'react-icons/gi';
 const ModalComponent = () => {
 	return (
 		<div>
@@ -7,10 +9,16 @@ const ModalComponent = () => {
 				<form
 					method="dialog"
 					className="modal-box">
-					<h3 className="font-bold text-lg">Hello!</h3>
-					<p className="py-4">Press ESC key or click the button below to close</p>
+					<h3 className="font-bold text-lg">
+						Success{' '}
+						<span>
+							{' '}
+							<GiCheckMark size={18} />
+						</span>
+					</h3>
+					<p className="py-4">Your report has been posted</p>
 					<div className="modal-action">
-						<button className="btn">Close</button>
+						<button className="btn">Okay</button>
 					</div>
 				</form>
 			</dialog>
