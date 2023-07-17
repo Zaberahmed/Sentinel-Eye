@@ -75,7 +75,7 @@ const MapComponent = (props: MapComponentProps) => {
 					borderRadius: '10px',
 					boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
 				},
-				cssText: '.Input:active { opacity: 0.5; }, .SearchBox {display:flex, justify-content:center,padding: 20px}',
+				cssText: '.Input:active { opacity: 0.5; }, ',
 			};
 
 			mapRef.current.addControl(search);
@@ -94,14 +94,13 @@ const MapComponent = (props: MapComponentProps) => {
 				mapRef.current.remove();
 			}
 		};
-	}, [props.mapStyle]);
+	}, []);
 
 	useEffect(() => {
-		// console.log('It is triggered!');
 		if (mapRef.current) {
 			currentMarkers.forEach((marker) => marker.remove());
 
-			console.log('reported crimes:', ReportedCrimes);
+			console.log(`${props.category}:`, ReportedCrimes);
 
 			const markers = ReportedCrimes.map((report) => {
 				const category = report.category;
@@ -117,7 +116,7 @@ const MapComponent = (props: MapComponentProps) => {
 				marker.setPopup(popup);
 				return marker;
 			});
-			console.log(markers);
+
 			setCurrentMarkers(markers);
 		}
 	}, [ReportedCrimes, props.dataSource]);
@@ -125,6 +124,10 @@ const MapComponent = (props: MapComponentProps) => {
 	useEffect(() => {
 		fetchCrimeReports();
 	}, [props.searchResult, props.category, props.dataSource]);
+
+	useEffect(() => {
+		mapRef.current?.setStyle(`mapbox://styles/mapbox/${props.mapStyle}?optimize=true`);
+	}, [props.mapStyle]);
 
 	return (
 		<div

@@ -5,6 +5,7 @@ import './MapContainer.component.css';
 import { MdLocalPolice } from 'react-icons/md';
 import { AiOutlineUser } from 'react-icons/ai';
 import { CgStyle } from 'react-icons/cg';
+import { colorMarker } from '../../utils/colorMarker';
 
 interface MapContainerProps {
 	searchResult: SearchResult;
@@ -47,8 +48,9 @@ const MapContainerComponent = (props: MapContainerProps) => {
 						<button
 							key={cat}
 							className={`category-toggle-button${category === cat ? ' active' : ''}`}
-							onClick={() => handleCategoryToggle(cat)}>
-							{cat}
+							onClick={() => handleCategoryToggle(cat)}
+							style={{ backgroundColor: colorMarker[cat] }}>
+							{cat.replace(/-/g, ' ')}
 						</button>
 					))}
 				</div>
