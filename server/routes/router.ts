@@ -23,7 +23,7 @@ router.post('/create-post', authenticator, postController.makePost);
 router.get('/all-post', authenticator, postController.getAllPost);
 router.get('/find-post-by-id', authenticator, postController.getPostById);
 router.get('/find-post-by-type', authenticator, postController.getPostByType);
-router.put('/update-post', authenticator, postController.updatePost)
+router.put('/update-post', authenticator, postController.updatePost);
 
 //comment routes
 
@@ -44,28 +44,33 @@ router.get('/uk-crime', async (req: Request, res: Response) => {
 	try {
 		const { lat, lng, date, crime_category } = req.query;
 		const data = await axios.get('https://data.police.uk/api/crimes-street/all-crime?' + 'lat=' + lat + '&lng=' + lng + '&date=' + date);
-		//categorization logic
 
-		const categorizedData = data.data.reduce((categories: any, report: any) => {
-			const { category } = report;
-			if (!excludedCategories.includes(category)) {
-				if (categories.hasOwnProperty(category)) {
-					categories[category].push(report);
-				} else {
-					categories[category] = [report];
-				}
-			}
+		if (Array.isArray(data.data) && data.data.length === 0) {
+			res.status(200).send([]);
+		} else {
+			if (data.data) {
+				//categorization logic
+				const categorizedData = data.data.reduce((categories: any, report: any) => {
+					const { category } = report;
+					if (!excludedCategories.includes(category)) {
+						if (categories.hasOwnProperty(category)) {
+							categories[category].push(report);
+						} else {
+							categories[category] = [report];
+						}
+					}
 
-			return categories;
-		}, {});
+					return categories;
+				});
 
-		// console.log(categorizedData['violent-crime']);
+				const selectedData = categorizedData[crime_category as string];
 
-		const selectedData = categorizedData[crime_category as string];
-
-		res.send(selectedData);
+				res.status(200).send(selectedData);
+			} else res.status(200).send(data.data);
+		}
 	} catch (error) {
 		console.log(error);
+		res.status(400).send({ message: 'Failed to fetch!' });
 	}
 });
 export { router };

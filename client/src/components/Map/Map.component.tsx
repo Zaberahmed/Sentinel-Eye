@@ -18,25 +18,24 @@ interface MapComponentProps {
 }
 
 const MapComponent = (props: MapComponentProps) => {
-	let currentMarkers: mapboxgl.Marker[] = [];
 	const mapContainerRef = useRef<HTMLDivElement>(null);
 	const mapRef = useRef<Map | null>(null);
-	const markerPosition: [number, number] = [-0.1084, 51.5549];
+	const defaultMarkerPosition: [number, number] = [-0.1084, 51.5549];
 	const [ReportedCrimes, setReportedCrimes] = useState<any[]>([]);
+	const [currentMarkers, setCurrentMarkers] = useState<mapboxgl.Marker[]>([]);
 
-	console.log(props.searchResult);
+	// console.log(props.searchResult);
 
 	const fetchCrimeReports = async () => {
 		try {
 			let result;
 
 			if (props.dataSource === 'police') {
-				// console.log(props.searchResult);
 				result = await GetAllCrimeFromUKAPI(props.searchResult.longitude, props.searchResult.latitude, props.category);
 			} else {
 				result = await GetAllCrime();
 			}
-			// console.log('result:', result);
+
 			const convertedData = result.map((report: any) => ({
 				...report,
 				longitude: parseFloat(report.location.longitude),
@@ -58,7 +57,7 @@ const MapComponent = (props: MapComponentProps) => {
 				zoom: 14,
 			});
 
-			const marker = new Marker({ color: '#e303fc', anchor: 'center' }).setLngLat(markerPosition).addTo(mapRef.current);
+			const marker = new Marker({ color: '#e303fc', anchor: 'center' }).setLngLat(defaultMarkerPosition).addTo(mapRef.current);
 
 			const popupOptions: mapboxgl.PopupOptions = { closeOnClick: true, closeButton: true, className: 'example' };
 			const popup = new mapboxgl.Popup(popupOptions).setHTML('<h3>Home</h3>');
@@ -95,39 +94,37 @@ const MapComponent = (props: MapComponentProps) => {
 				mapRef.current.remove();
 			}
 		};
-	}, [props.dataSource, props.mapStyle]);
+	}, [props.mapStyle]);
 
 	useEffect(() => {
-		if (mapRef.current && ReportedCrimes.length > 0) {
-			if (currentMarkers) {
-				currentMarkers.forEach((marker) => marker.remove());
-				currentMarkers = [];
-			}
+		// console.log('It is triggered!');
+		if (mapRef.current) {
+			currentMarkers.forEach((marker) => marker.remove());
+
 			console.log('reported crimes:', ReportedCrimes);
 
-			ReportedCrimes.forEach((report) => {
+			const markers = ReportedCrimes.map((report) => {
 				const category = report.category;
 				const markerColor = colorMarker[category];
-				const marker = new Marker({ color: markerColor, anchor: 'center' }).setLngLat([report.location.longitude, report.location.latitude]).addTo(mapRef.current!);
-				currentMarkers.push(marker);
-				// const el = document.createElement('div');
-				// const width = 27
-				// const height = 41
+				const marker = new mapboxgl.Marker({ color: markerColor, anchor: 'center' }).setLngLat([report.location.longitude, report.location.latitude]).addTo(mapRef.current!);
 
-				const popupOptions: mapboxgl.PopupOptions = { closeOnClick: true, closeButton: true };
+				const popupOptions = { closeOnClick: true, closeButton: true };
 				const popupContent = `<h3>Category: ${report.category}</h3>
-  <p>Context: ${report.context}</p>
-  <p>Street Name: ${report.location.street.name}</p>`;
+				  <p>Context: ${report.context}</p>
+				  <p>Street Name: ${report.location.street.name}</p>`;
 				const popup = new mapboxgl.Popup(popupOptions).setHTML(popupContent);
 
 				marker.setPopup(popup);
+				return marker;
 			});
+			console.log(markers);
+			setCurrentMarkers(markers);
 		}
-	}, [ReportedCrimes, props.category]);
+	}, [ReportedCrimes, props.dataSource]);
 
 	useEffect(() => {
 		fetchCrimeReports();
-	}, [props.searchResult, props.category]);
+	}, [props.searchResult, props.category, props.dataSource]);
 
 	return (
 		<div
